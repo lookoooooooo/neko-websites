@@ -8,62 +8,80 @@
 </head>
 <body>
 
-    <!-- MAIN CATALOG SCREEN -->
-    <div id="catalogPage">
+    <!-- ========================================== -->
+    <!-- SCREEN 1: GAMES CATALOG (Visible at start) -->
+    <!-- ========================================== -->
+    <div id="catalogScreen">
         <header class="studio-header">
-            <!-- Главный японский и английский заголовок портала -->
-            <h1 class="main-site-title">ネコ (Neko)</h1>
-            <p class="site-subtitle">Official Mini-Games Portal</p>
+            <h1 class="main-site-title">ピンクプリンスタジオ (Pink Pudding Studio)</h1>
+            <p class="site-subtitle">Hi! This is my solo studio; I simply share my drawings, animations, and memes here. I hope someone finds inspiration on my site! 🍮</p>
         </header>
 
-        <main class="catalog-container">
-            <!-- GAME CARD 1 -->
-            <div class="game-card">
-                <img src="game-cover.jpg" alt="Pudding Panic Preview" class="preview-img">
-                <h2 class="game-card-title">Pudding Panic!</h2>
-                <p class="game-card-text">Catch falling puddings! Avoid letting them escape. Classic arcade fun!</p>
-                <button class="menu-btn" onclick="openGame('pudding-catcher')">PLAY NOW 🐾</button>
+        <!-- Раздел с твоими мини-играми -->
+        <h2 class="section-title">外伝 PUDYA GAMES / プジャ・ゲーム</h2>
+        
+        <!-- Чистая сетка для карточек игр -->
+        <main class="games-grid">
+            
+            <!-- GAME CARD №1 (Твой оригинальный рисунок!) -->
+            <div class="logo-card">
+                <img src="studio-logo.png" alt="Pudding Panic Game">
+                <h3 class="game-title">Pudding Panic!</h3>
+                <p class="game-desc">Catch falling puddings! Avoid letting them escape. Classic arcade fun! 🐾</p>
+                <button class="menu-btn" onclick="openGame('pudding-catcher')">PLAY NOW ╮(￣▽￣"")╭</button>
             </div>
 
-            <!-- GAME CARD 2 (Placeholder) -->
-            <div class="game-card">
-                <div class="preview-img-placeholder">🐱?🐙</div>
-                <h2 class="game-card-title">Coming Soon...</h2>
-                <p class="game-card-text">A brand new secret game is being cooked by puddings right now!</p>
-                <button class="menu-btn" disabled style="opacity: 0.5; cursor: not-allowed;">LOCKED 🔒</button>
+            <!-- GAME CARD №2 (Будущая игра-заглушка без мусора) -->
+            <div class="logo-card locked">
+                <div class="placeholder-img">🐱?🐙</div>
+                <h3 class="game-title">Coming Soon...</h3>
+                <p class="game-desc">A brand new secret game is being cooked by puddings right now!</p>
+                <button class="menu-btn" disabled>LOCKED 🔒</button>
             </div>
+
         </main>
     </div>
 
-    <!-- GAME SCREEN 1: PUDDING CATCHER -->
-    <div id="gamePage-pudding-catcher" class="game-page-container" style="display: none;">
+
+    <!-- ========================================== -->
+    <!-- SCREEN 2: THE GAME FIELD (Hidden at start) -->
+    <!-- ========================================== -->
+    <div id="gameScreen-pudding-catcher" style="display: none; padding-top: 40px;">
         <main class="main-content">
             <h1 class="studio-title">自由なプリン (Pudding Panic!)</h1>
             
+            <!-- Панель счета -->
             <div class="game-stats">
                 <div class="stat-box">Score: <span id="score">0</span></div>
                 <div class="stat-box">Time: <span id="timer">30</span>s</div>
             </div>
 
+            <!-- Игровое поле -->
             <div class="game-zone" id="gameZone">
                 <div class="start-overlay" id="startOverlay">
                     <button class="menu-btn" id="startBtn">START GAME 🍮</button>
                 </div>
             </div>
             
-            <!-- Кнопка назад на английском и японском -->
-            <button class="back-btn" onclick="closeGame()">← もどる (Back to Neko Games)</button>
+            <!-- Кнопка назад -->
+            <button class="back-btn" onclick="closeActiveGame()">← もどる (Back to Neko Catalog)</button>
         </main>
     </div>
 
-    <!-- GLOBAL FOOTER -->
+
+    <!-- ========================================== -->
+    <!-- GLOBAL FOOTER                              -->
+    <!-- ========================================== -->
     <footer class="studio-footer">
-        <p>© Created by Pink Pudding Studio. All rights are eaten by puddings 🍮</p>
+        <p>© Pink Pudding Studio. All rights are eaten by puddings 🍮</p>
     </footer>
 
-    <!-- GAME LOGIC & NAVIGATION SCRIPTS -->
+
+    <!-- ========================================== -->
+    <!-- NAVIGATION & GAME SCRIPTS                  -->
+    <!-- ========================================== -->
     <script>
-        const catalogPage = document.getElementById('catalogPage');
+        const catalogScreen = document.getElementById('catalogScreen');
         const gameZone = document.getElementById('gameZone');
         const startOverlay = document.getElementById('startOverlay');
         const startBtn = document.getElementById('startBtn');
@@ -75,26 +93,26 @@
         let gameInterval;
         let puddingInterval;
         let isPlaying = false;
-        let currentActiveGameId = null;
+        let currentGameId = null;
 
-        // Navigation: Open selected game
+        // Кликнули на игру -> Скрыли каталог -> Открыли игру
         function openGame(gameId) {
-            catalogPage.style.display = 'none';
-            currentActiveGameId = `gamePage-${gameId}`;
-            document.getElementById(currentActiveGameId).style.display = 'block';
+            catalogScreen.style.display = 'none';
+            currentGameId = `gameScreen-${gameId}`;
+            document.getElementById(currentGameId).style.display = 'block';
         }
 
-        // Navigation: Close and return to catalog
-        function closeGame() {
+        // Кликнули "Назад" -> Скрыли игру -> Вернули каталог
+        function closeActiveGame() {
             endGame();
-            if (currentActiveGameId) {
-                document.getElementById(currentActiveGameId).style.display = 'none';
-                currentActiveGameId = null;
+            if (currentGameId) {
+                document.getElementById(currentGameId).style.display = 'none';
+                currentGameId = null;
             }
-            catalogPage.style.display = 'block';
+            catalogScreen.style.display = 'block';
         }
 
-        // Game Mechanics
+        // Механика игры
         startBtn.addEventListener('click', startGame);
 
         function startGame() {
