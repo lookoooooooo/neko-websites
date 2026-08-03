@@ -1,51 +1,50 @@
-/* Подключаем милый округлый шрифт */
-@import url('https://googleapis.com');
-
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Comfortaa', 'Segoe UI', cursive, sans-serif;
-    background-color: #121214; /* Глубокий тёмный фон */
-    color: #f4ebd9; /* Светлый пудингово-кремовый текст */
+    /* Твой оригинальный шрифт без засечек */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #0b0b0c; /* Твой фирменный глубокий чёрный фон */
+    color: #ffffff;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Шапка в стиле Pink Pudding (Тёмная) */
+/* Шапка сайта */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    background-color: #1a1a1e;
-    border-bottom: 3px dashed #ff758f; /* Яркая пунктирная неоново-розовая линия */
+    padding: 12px 25px;
+    background-color: #121214;
+    border-bottom: 2px dashed #ff4d6d; /* Твоя яркая пунктирная линия */
 }
 
 .logo {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
-    color: #ff758f;
-    text-shadow: 2px 2px 0px #38161c;
+    color: #ff4d6d;
 }
 
-/* Переключатель языков */
+/* Языковые кнопки */
 .lang-switch a {
     text-decoration: none;
-    color: #a68a75;
+    color: #ffffff;
     font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 12px;
-    transition: all 0.2s;
-    font-size: 14px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    background-color: #1a1a1e;
+    border: 1px solid #ff4d6d;
+    transition: 0.2s;
 }
 
 .lang-switch a.active {
-    background-color: #ff758f; /* Яркая неоново-розовая подложка */
+    background-color: #ff4d6d; /* Плотный розовый цвет для активного языка */
     color: #ffffff;
 }
 
-/* Главный контейнер меню */
+/* Главный контейнер */
 .menu-container {
     flex: 1;
     display: flex;
@@ -53,73 +52,68 @@ header {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 30px 20px;
 }
 
-/* Тёмный неоновый логотип-заголовок NEKO */
+/* Крупный заголовок NEKO */
 .site-title {
-    font-size: 64px;
+    font-size: 48px;
+    font-weight: 800;
     margin: 0;
-    color: #ff758f;
-    font-weight: 700;
-    text-shadow: 4px 4px 0px #38161c; /* Глубокая тень */
-    letter-spacing: 2px;
+    color: #ff4d6d;
+    letter-spacing: 1px;
+}
+
+/* Рисунок-логотип */
+.studio-banner {
+    max-width: 240px;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 12px;
 }
 
 .created-by {
-    font-size: 16px;
-    color: #c79d7b;
-    margin-top: 10px;
-    margin-bottom: 35px;
-    font-weight: bold;
+    font-size: 14px;
+    color: #a0a0a5;
+    margin-bottom: 30px;
 }
 
-/* Кнопки меню в стиле тёмных карточек */
+/* Кнопки меню — точные копии твоих неоновых плашек */
 .menu-buttons {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
-    max-width: 320px;
+    max-width: 290px;
 }
 
 .menu-btn {
-    background-color: #1a1a1e;
-    border: 3px solid #ff8fa3;
-    padding: 16px 30px;
-    font-size: 18px;
-    border-radius: 20px;
-    color: #f4ebd9;
+    background-color: #ff4d6d; /* Плотная неоново-розовая заливка */
+    border: none;
+    padding: 14px 28px;
+    font-size: 15px;
+    border-radius: 25px; /* Твои аккуратные скругления */
+    color: #ffffff;
     cursor: pointer;
-    font-family: 'Comfortaa', cursive, sans-serif;
     font-weight: bold;
-    box-shadow: 0px 5px 0px #38161c; /* Объёмная тёмная тень кнопки */
-    transition: all 0.1s ease-in-out;
+    /* Твоё мощное фирменное свечение карточек */
+    box-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 .menu-btn:hover {
-    transform: translateY(2px);
-    box-shadow: 0px 3px 0px #38161c;
-    background-color: #25252b;
-    border-color: #ff758f;
+    transform: scale(1.03); /* Лёгкое увеличение при наведении */
+    box-shadow: 0 0 22px rgba(255, 77, 109, 0.8);
+    background-color: #ff6680;
 }
 
-/* Мемный футер (Тёмный) */
+/* Аккуратный оригинальный футер */
 footer {
     text-align: center;
-    padding: 15px;
-    font-size: 13px;
-    color: #b5957a;
-    background-color: #1a1a1e;
-    border-top: 3px dashed #ff8fa3;
-    font-weight: bold;
-}
-/* Настройки для логотипа под надписью NEKO */
-.studio-banner {
-    max-width: 280px; /* Ограничиваем ширину, чтобы не был гигантским */
-    width: 100%;
-    height: auto;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    filter: drop-shadow(0px 4px 8px rgba(255, 117, 143, 0.2)); /* Легкое неоновое свечение вокруг рисунка */
+    padding: 14px;
+    font-size: 12px;
+    color: #a0a0a5;
+    background-color: #121214;
+    border-top: 2px dashed #ff4d6d;
 }
