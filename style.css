@@ -1,87 +1,72 @@
+/* Общие настройки для всей страницы */
 body {
+    background-color: #0d0d0d; /* Темный фон как на скриншоте */
+    color: #ffffff;            /* Белый цвет для основного текста */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    /* Точный шрифт без засечек как у тебя */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: #18181c; /* На тон светлее! Твой оригинальный тёмно-серый графитовый фон */
-    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
+/* Контейнер для контента */
 .main-content {
     text-align: center;
-    max-width: 600px; /* Аккуратная ширина контента, чтобы ничего не расползалось */
-    width: 100%;
+    max-width: 800px;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
 }
 
-/* Твой фирменный мягкий, пастельно-розовый заголовок (не ядовитый!) */
+/* Ярко-розовый заголовок */
 .studio-title {
-    font-size: 28px;
-    color: #f26d97; 
-    margin-top: 0;
+    color: #ff66b2; /* Насыщенный розовый цвет */
+    font-size: 2.5rem;
     margin-bottom: 25px;
     font-weight: bold;
-    letter-spacing: 0.5px;
 }
 
-/* Точная копия твоей белой карточки для рисунка */
+/* Белая карточка для рисунка/логотипа */
 .logo-card {
-    background-color: #ffffff;
-    padding: 12px;
-    border-radius: 12px; /* Аккуратные скругления углов */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff; /* Чистый белый фон */
+    border-radius: 20px;       /* Скругленные углы */
+    padding: 20px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Легкая тень */
     margin-bottom: 25px;
-    max-width: 440px; /* Идеальный размер, как на твоём скриншоте */
-    width: 100%;
-    box-sizing: border-box;
+    max-width: 100%;
 }
 
+/* Настройка самого изображения внутри карточки */
 .logo-card img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
-    border-radius: 6px;
+    border-radius: 10px;
 }
 
-/* Простой, чистый белый текст строго по центру */
+/* Описание под карточкой */
 .description {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #ffffff;
+    font-size: 1.2rem;
+    line-height: 1.6;
     margin-bottom: 30px;
-    max-width: 450px;
+    color: #e0e0e0; /* Чуть мягкий белый цвет */
 }
 
-/* Кнопка-заглушка в виде аккуратной овальной плашки */
-.menu-buttons {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
+/* Овальная розовая кнопка */
 .menu-btn {
-    background-color: #f26d97; /* Тот самый мягкий розовый цвет без неона */
-    border: none;
-    color: #ffffff;
-    padding: 10px 30px;
-    font-size: 14px;
-    border-radius: 20px; /* Закруглённые аккуратные края */
+    background-color: transparent;
+    color: #ff66b2;               /* Розовый текст */
+    border: 2px solid #ff66b2;    /* Розовая рамка */
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 50px;          /* Делает кнопку овальной */
     cursor: pointer;
-    font-weight: 500;
-    box-shadow: 0 2px 8px rgba(242, 109, 151, 0.3);
-    transition: background-color 0.2s, transform 0.1s;
-    white-space: nowrap;
+    transition: all 0.3s ease;    /* Плавная анимация при наведении */
 }
 
+/* Эффект при наведении на кнопку */
 .menu-btn:hover {
-    background-color: #e05c86;
-    transform: translateY(-1px);
+    background-color: #ff66b2;    /* Кнопка заливается розовым */
+    color: #0d0d0d;               /* Текст становится темным */
 }
