@@ -3,33 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pink Pudding Studio - Neko</title>
+    <title>ネコ (Neko) - Games by Pink Pudding Studio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <main class="main-content">
-        <!-- Аккуратный розовый заголовок -->
-        <h1 class="studio-title">ネコ (Neko)</h1>
-        
-        <!-- Компактная белая карточка с рисунком -->
-        <div class="logo-card">
-            <img src="studio-logo.png" alt="Pink Pudding Studio Logo">
-        </div>
-        
-        <!-- Текст под карточкой -->
-        <p class="description">Hi! This is my parody site. All rights are eaten by puddings 🍮</p>
-        
-        <!-- Овальная розовая кнопка -->
-        <div class="menu-buttons">
-            <button class="menu-btn">Coming Soon... 🐾 ╮(￣▽￣"")╭</button>
-        </div>
-    </main>
+    <!-- MAIN CATALOG SCREEN -->
+    <div id="catalogPage">
+        <header class="studio-header">
+            <!-- Главный японский и английский заголовок портала -->
+            <h1 class="main-site-title">ネコ (Neko)</h1>
+            <p class="site-subtitle">Official Mini-Games Portal</p>
+        </header>
 
-    <!-- Подвал сайта в самом низу страницы -->
+        <main class="catalog-container">
+            <!-- GAME CARD 1 -->
+            <div class="game-card">
+                <img src="game-cover.jpg" alt="Pudding Panic Preview" class="preview-img">
+                <h2 class="game-card-title">Pudding Panic!</h2>
+                <p class="game-card-text">Catch falling puddings! Avoid letting them escape. Classic arcade fun!</p>
+                <button class="menu-btn" onclick="openGame('pudding-catcher')">PLAY NOW 🐾</button>
+            </div>
+
+            <!-- GAME CARD 2 (Placeholder) -->
+            <div class="game-card">
+                <div class="preview-img-placeholder">🐱?🐙</div>
+                <h2 class="game-card-title">Coming Soon...</h2>
+                <p class="game-card-text">A brand new secret game is being cooked by puddings right now!</p>
+                <button class="menu-btn" disabled style="opacity: 0.5; cursor: not-allowed;">LOCKED 🔒</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- GAME SCREEN 1: PUDDING CATCHER -->
+    <div id="gamePage-pudding-catcher" class="game-page-container" style="display: none;">
+        <main class="main-content">
+            <h1 class="studio-title">自由なプリン (Pudding Panic!)</h1>
+            
+            <div class="game-stats">
+                <div class="stat-box">Score: <span id="score">0</span></div>
+                <div class="stat-box">Time: <span id="timer">30</span>s</div>
+            </div>
+
+            <div class="game-zone" id="gameZone">
+                <div class="start-overlay" id="startOverlay">
+                    <button class="menu-btn" id="startBtn">START GAME 🍮</button>
+                </div>
+            </div>
+            
+            <!-- Кнопка назад на английском и японском -->
+            <button class="back-btn" onclick="closeGame()">← もどる (Back to Neko Games)</button>
+        </main>
+    </div>
+
+    <!-- GLOBAL FOOTER -->
     <footer class="studio-footer">
-        <p>© Pink Pudding Studio. All rights are eaten by puddings 🍮</p>
+        <p>© Created by Pink Pudding Studio. All rights are eaten by puddings 🍮</p>
     </footer>
 
+    <!-- GAME LOGIC & NAVIGATION SCRIPTS -->
+    <script>
+        const catalogPage = document.getElementById('catalogPage');
+        const gameZone = document.getElementById('gameZone');
+        const startOverlay = document.getElementById('startOverlay');
+        const startBtn = document.getElementById('startBtn');
+        const scoreEl = document.getElementById('score');
+        const timerEl = document.getElementById('timer');
+
+        let score = 0;
+        let timeLeft = 30;
+        let gameInterval;
+        let puddingInterval;
+        let isPlaying = false;
+        let currentActiveGameId = null;
+
+        // Navigation: Open selected game
+        function openGame(gameId) {
+            catalogPage.style.display = 'none';
+            currentActiveGameId = `gamePage-${gameId}`;
+            document.getElementById(currentActiveGameId).style.display = 'block';
+        }
+
+        // Navigation: Close and return to catalog
+        function closeGame() {
+            endGame();
+            if (currentActiveGameId) {
+                document.getElementById(currentActiveGameId).style.display = 'none';
+                currentActiveGameId = null;
+            }
+            catalogPage.style.display = 'block';
+        }
+
+        // Game Mechanics
+        startBtn.addEventListener('click', startGame);
+
+        function startGame() {
+            score = 0;
+            timeLeft = 30;
+            isPlaying = true;
+            scoreEl.textContent = score;
+            timerEl.textContent = timeLeft;
+            startOverlay.style.display = 'none';
+
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+
+            puddingInterval = setInterval(spawnPudding, 600);
+        }
+
+        function spawnPudding() {
+            if (!isPlaying) return;
+
+            const pudding = document.createElement('div');
+            pudding.classList.add('pudding-target');
+            pudding.textContent = '🍮';
+
+            const zoneWidth = gameZone.clientWidth;
+            const randomX = Math.floor(Math.random() * (zoneWidth - 50));
+            pudding.style.left = `${randomX}px`;
+            pudding.style.top = '0px';
+
+            pudding.addEventListener('mousedown', () => {
+                score += 10;
+                scoreEl.textContent = score;
+                pudding.remove();
+            });
+
+            gameZone.appendChild(pudding);
+
+            let posY = 0;
+            const fallSpeed = 3 + Math.random() * 4;
+            const fallInterval = setInterval(() => {
+                if (!isPlaying) {
+                    clearInterval(fallInterval);
+                    pudding.remove();
+                    return;
+                }
+
+                posY += fallSpeed;
+                pudding.style.top = `${posY}px`;
+
+                if (posY > gameZone.clientHeight - 40) {
+                    clearInterval(fallInterval);
+                    pudding.remove();
+                }
+            }, 20);
+        }
+
+        function endGame() {
+            isPlaying = false;
+            clearInterval(gameInterval);
+            clearInterval(puddingInterval);
+            
+            const activePuddings = document.querySelectorAll('.pudding-target');
+            activePuddings.forEach(p => p.remove());
+
+            startOverlay.style.display = 'flex';
+            startBtn.textContent = `GG! Score: ${score}. Try Again? 🐾`;
+        }
+    </script>
 </body>
 </html>
