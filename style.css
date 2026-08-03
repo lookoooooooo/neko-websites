@@ -5,34 +5,38 @@ body {
     background-color: #0d0d0d; /* Глубокий темный фон */
     color: #ffffff;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    text-align: center; /* Центрирует всё внутри по умолчанию */
+    text-align: center; /* Центрирует всё внутри */
 }
 
 /* Главный контейнер для контента */
 .main-content {
     max-width: 600px;
-    margin: 0 auto; /* Центрирует блок на экране */
+    margin: 0 auto; 
     padding: 40px 20px 20px 20px;
 }
 
-/* Розовый заголовок страницы */
+/* Розовый заголовок страницы с неоновым свечением */
 .studio-title {
     color: #ff66b2; /* Насыщенный розовый */
     font-size: 2.2rem;
     margin-top: 20px;
     margin-bottom: 25px;
     font-weight: bold;
+    /* Неоновая подсветка текста */
+    text-shadow: 0 0 5px #ff66b2, 0 0 15px #ff66b2, 0 0 30px #ff66b2;
 }
 
-/* Уменьшенная аккуратная карточка для рисунка */
+/* Уменьшенная аккуратная карточка для рисунка с мягким свечением */
 .logo-card {
     background-color: #ffffff;
     border-radius: 28px; /* Сильное мягкое скругление углов */
     padding: 12px;
     display: block;
     max-width: 440px; /* Фиксированный компактный размер */
-    margin: 0 auto 25px auto; /* Центрирует саму карточку */
+    margin: 0 auto 25px auto; 
     box-sizing: border-box;
+    /* Белое свечение вокруг карточки, чтобы она выделялась */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 /* Картинка внутри карточки */
@@ -48,9 +52,11 @@ body {
     font-size: 1.1rem;
     margin-bottom: 25px;
     color: #ffffff;
+    /* Легкое белое свечение для читаемости текста */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
-/* Овальная кнопка */
+/* Овальная кнопка с розовым неоновым контуром */
 .menu-btn {
     background-color: transparent;
     color: #ff66b2;
@@ -59,22 +65,28 @@ body {
     font-size: 1rem;
     border-radius: 50px; /* Идеальный овал */
     cursor: pointer;
-    margin-bottom: 50px; /* Отступ до подвала */
-    transition: background-color 0.2s, color 0.2s;
+    margin-bottom: 50px; 
+    /* Розовое свечение рамки и текста */
+    box-shadow: 0 0 8px rgba(2ff, 102, 178, 0.4), inset 0 0 8px rgba(255, 102, 178, 0.2);
+    text-shadow: 0 0 4px #ff66b2;
+    transition: all 0.3s ease;
 }
 
-/* Эффект наведения на кнопку */
+/* Эффект супер-свечения при наведении на кнопку */
 .menu-btn:hover {
     background-color: #ff66b2;
     color: #0d0d0d;
+    text-shadow: none; /* Убираем свечение текста, так как он стал темным */
+    /* Усиливаем внешнее неоновое свечение всей кнопки */
+    box-shadow: 0 0 15px #ff66b2, 0 0 30px #ff66b2;
 }
 
-/* Копирайт строго в самом низу под элементами */
+/* Копирайт в самом низу страницы */
 .studio-footer {
     display: block;
     width: 100%;
     padding: 20px 0;
     font-size: 0.9rem;
-    color: #8c8c8c; /* Приглушенный цвет текста */
+    color: #8c8c8c; 
     clear: both;
 }
