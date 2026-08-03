@@ -35,72 +35,55 @@ body {
 .section-title {
     color: #ff66b2;
     font-size: 1.6rem;
-    margin: 40px 0 20px 0;
+    margin: 40px 0 10px 0;
     text-shadow: 0 0 5px #ff66b2, 0 0 15px #ff66b2;
 }
 
-/* СЕТКА ДЛЯ КАРТОЧЕК ИГР */
-.games-grid {
-    display: flex;
-    flex-wrap: wrap; /* Автоматически переносит карточки на новую строку, если их много */
-    justify-content: center;
-    gap: 30px;
-    max-width: 1000px;
+/* Главный контейнер контента */
+.main-content {
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Твоя белая карточка — теперь элемент каталога */
+/* ВОЗВРАЩАЕМ ТВОЮ ЛЮБИМУЮ БЕЛУЮ КАРТОЧКУ */
 .logo-card {
     background-color: #ffffff;
-    border-radius: 28px; /* Фирменные круглые углы */
-    padding: 15px;
-    width: 300px; /* Аккуратный размер для каждой карточки */
+    border-radius: 28px; /* Сильное мягкое скругление углов */
+    padding: 20px;
+    display: block;
+    max-width: 440px; 
+    margin: 0 auto 35px auto; 
     box-sizing: border-box;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease;
 }
 
-.logo-card:hover {
-    transform: translateY(-5px); /* Плавный подъем при наведении */
-}
-
-/* Картинка внутри карточки игры */
+/* Картинка логотипа внутри карточки */
 .logo-card img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: 20px;
-    margin-bottom: 12px;
-}
-
-/* Заглушка для закрытых игр */
-.placeholder-img {
-    width: 100%;
-    height: 180px;
-    background-color: #e0e0e0;
-    border-radius: 20px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    color: #8c8c8c;
+    margin-bottom: 15px;
 }
 
 /* Тексты внутри карточек */
 .game-title {
     color: #0d0d0d;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     margin: 10px 0 5px 0;
 }
 
 .game-desc {
     color: #555555;
-    font-size: 0.9rem;
-    margin: 0 0 15px 0;
-    height: 40px; /* Чтобы карточки были ровными */
-    overflow: hidden;
+    font-size: 1rem;
+    margin: 0 0 20px 0;
+}
+
+/* Смайлики для будущей игры */
+.placeholder-emoji {
+    font-size: 4rem;
+    margin-bottom: 15px;
 }
 
 /* Овальные неоновые кнопки */
@@ -108,13 +91,14 @@ body {
     background-color: transparent;
     color: #ff66b2;
     border: 2px solid #ff66b2;
-    padding: 10px 25px;
-    font-size: 0.95rem;
+    padding: 10px 28px;
+    font-size: 1rem;
     border-radius: 50px; 
     cursor: pointer;
     box-shadow: 0 0 8px rgba(255, 102, 178, 0.4), inset 0 0 8px rgba(255, 102, 178, 0.2);
     text-shadow: 0 0 4px #ff66b2;
     transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .menu-btn:hover:not([disabled]) {
@@ -124,9 +108,9 @@ body {
     box-shadow: 0 0 15px #ff66b2, 0 0 30px #ff66b2;
 }
 
-/* Для заблокированных кнопок */
+/* Для заблокированных карточек */
 .logo-card.locked {
-    opacity: 0.7;
+    opacity: 0.65;
 }
 .logo-card.locked .menu-btn {
     color: #8c8c8c;
@@ -137,13 +121,8 @@ body {
 }
 
 /* ========================================== */
-/* СТИЛИ ДЛЯ ИГРОВОЙ ЗОНЫ                    */
+/* СТИЛИ ИГРЫ                                 */
 /* ========================================== */
-.main-content {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 .studio-title {
     color: #ff66b2;
     font-size: 2.2rem;
