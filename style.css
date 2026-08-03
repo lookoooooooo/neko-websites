@@ -114,3 +114,12 @@ footer {
     border-top: 3px dashed #ff8fa3;
     font-weight: bold;
 }
+/* Настройки для логотипа под надписью NEKO */
+.studio-banner {
+    max-width: 280px; /* Ограничиваем ширину, чтобы не был гигантским */
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    filter: drop-shadow(0px 4px 8px rgba(255, 117, 143, 0.2)); /* Легкое неоновое свечение вокруг рисунка */
+}
