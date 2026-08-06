@@ -5,40 +5,35 @@
     <title>Glitch-Pop! (Vocaloid Fan Game by Pink Pudding Studio)</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #060b0e; color: #e1f5fe; padding: 20px; max-width: 1000px; margin: 0 auto; user-select: none; }
-        .studio-tag { text-align: center; color: #ff69b4; font-size: 14px; letter-spacing: 3px; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; text-shadow: 0 0 8px rgba(255, 105, 180, 0.4); }
-        .game-title { text-align: center; font-size: 46px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 15px #00f0ff, 3px 3px #ff0055; margin: 0 0 5px 0; font-style: italic; letter-spacing: 1px; }
+        .studio-header-box { text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(255, 105, 180, 0.05); border-radius: 16px; border: 1px dashed #ff69b4; }
+        .studio-tag { color: #ff69b4; font-size: 28px; font-weight: bold; text-transform: uppercase; margin: 0; text-shadow: 0 0 15px rgba(255, 105, 180, 0.6); }
+        .studio-desc { color: #f8fafc; font-size: 15px; max-width: 600px; margin: 10px auto 20px auto; line-height: 1.6; }
+        .studio-logo { max-width: 280px; display: block; margin: 0 auto; filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.3)); border-radius: 12px; }
+        .game-title { text-align: center; font-size: 46px; font-weight: 900; color: #00f0ff; text-shadow: 0 0 15px #00f0ff, 3px 3px #ff0055; margin: 20px 0 5px 0; font-style: italic; letter-spacing: 1px; }
         .sub-title { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
-        
         .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .panel { background: #0b151b; padding: 20px; border-radius: 12px; border: 2px solid #00f0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.1); }
-        
         .character-card { background: #11202a; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid #334155; display: flex; align-items: center; }
         .chibi-avatar { width: 55px; height: 55px; object-fit: contain; margin-right: 12px; filter: drop-shadow(0 0 4px rgba(255,255,255,0.2)); }
         .card-info { flex-grow: 1; }
         .miku-card { border-left-color: #39ff14; }
         .teto-card { border-left-color: #ff0055; }
         .gumi-card { border-left-color: #a3ff00; }
-        
         .game-screen { background: #03070a; border-radius: 12px; border: 1px solid #1e293b; overflow: hidden; display: flex; flex-direction: column; height: 600px; }
         .stage-area { height: 65%; background: linear-gradient(180deg, #060b0e 0%, #122533 100%); display: flex; justify-content: space-around; align-items: flex-end; padding: 10px; position: relative; cursor: crosshair; }
         .stage-area:active { background: linear-gradient(180deg, #060b0e 0%, #1c364a 100%); }
-        
         .sprite-full { max-height: 90%; filter: drop-shadow(0 0 8px rgba(0,240,255,0.3)); transition: transform 0.1s; }
         .sprite-chibi { max-height: 50%; filter: drop-shadow(0 0 8px rgba(0,240,255,0.5)); transition: transform 0.1s; }
         .sprite-chibi:active { transform: scale(0.9) translateY(-10px); }
         .monster-sprite { max-height: 55%; filter: drop-shadow(0 0 12px #ff0055); }
-        
         .dialogue-box { background: rgba(11, 21, 27, 0.98); padding: 15px; border-top: 3px solid #39ff14; height: 35%; box-sizing: border-box; }
         .speaker-name { font-weight: bold; color: #00f0ff; font-size: 20px; margin-bottom: 5px; text-transform: uppercase; }
         .story-text { font-size: 15px; line-height: 1.5; margin-bottom: 12px; color: #f8fafc; height: 50px; overflow-y: auto; }
-        
         button { background: #142831; color: #00f0ff; border: 1px solid #00f0ff; padding: 8px 14px; margin: 2px; cursor: pointer; border-radius: 6px; font-weight: bold; transition: 0.2s; font-size: 12px; }
         button:hover { background: #00f0ff; color: #060b0e; box-shadow: 0 0 8px #00f0ff; }
         button:disabled { background: #0f171c; color: #475569; border-color: #1e293b; cursor: not-allowed; box-shadow: none; }
-        
         .choice-btn { display: block; width: 100%; text-align: left; background: #0f2420; border-color: #39ff14; color: #39ff14; margin-bottom: 5px; font-size: 14px; padding: 10px; }
         .choice-btn:hover { background: #39ff14; color: #060b0e; }
-        
         .hp-bar { background: #1e293b; height: 12px; border-radius: 6px; margin-top: 5px; overflow: hidden; border: 1px solid #334155; }
         .hp-fill { background: linear-gradient(90deg, #ff0055, #ff5500); height: 100%; width: 100%; transition: width 0.1s; }
         .click-hint { position: absolute; top: 10px; width: 100%; text-align: center; color: #ff0055; font-size: 12px; font-weight: bold; letter-spacing: 1px; animation: pulse 1.5s infinite; pointer-events: none; }
@@ -47,7 +42,12 @@
 </head>
 <body>
 
-    <div class="studio-tag">Pink Pudding Studio Presents</div>
+    <div class="studio-header-box">
+        <h2 class="studio-tag">ピンクプリンスタジオ (Pink Pudding Studio)</h2>
+        <p class="studio-desc">Hi! This is my solo studio; I simply share my drawings, animations, and memes here. I hope someone finds inspiration on my site! 🍮</p>
+        <img class="studio-logo" src="Pudding Daniel.png" alt="Pink Pudding Studio Art">
+    </div>
+
     <h1 class="game-title">GLITCH-POP!</h1>
     <div class="sub-title">(Vocaloid Fan Game by Pink Pudding Studio)</div>
 
@@ -142,20 +142,8 @@
             the_shock: {
                 name: "System",
                 text: "*BZZZZZT!* A blinding surge of electricity pulls Miku into the broken server matrix. To her surprise, Kasane Teto and Gumi are already trapped here due to their own short-circuited equipment!",
-                isBattleScene: false,
-                miku: images.mikuFull, 
-                side: images.tetoFull, 
-                choices: [{ text: "Form the Vocaloid Trio and fight back!", nextScene: "world_quest" }]
-            },
-            world_quest: {
-                name: "Kasane Teto",
-                text: "«If we want to escape, we need to bypass the security wall! Miku needs to power Tokyo, I must reach Paris, and Gumi needs to rock New York!»",
-                isBattleScene: true, 
-                miku: images.mikuChibi, 
-                side: images.monster, 
-                action: () => { startBattle(150); },
+isBattleScene: false,miku: images.mikuFull,side: images.tetoFull,choices: [{ text: "Form the Vocaloid Trio and fight back!", nextScene: "world_quest" }]},world_quest: {name: "Kasane Teto",text: "«If we want to escape, we need to bypass the security wall! Miku needs to power Tokyo, I must reach Paris, and Gumi needs to rock New York!»",isBattleScene: true,miku: images.mikuChibi,side: images.monster,action: () => { startBattle(150); },choices: []},victory_scene: {name: "Gumi",text: "«Glitch-Pop protocol completed! The portal network is opening! Tokyo, Paris, and New York servers are online! Let's give the biggest global concert in history!»",isBattleScene: false,miku: images.mikuFull,side: images.gumiFull,choices: []}};if(localStorage.getItem('glitchPopSave')) {state = JSON.parse(localStorage.getItem('glitchPopSave'));}function startBattle(hp) {state.inBattle = true;state.monsterHp = hp;state.monsterMaxHp = hp;}function dealDamage(amount) {if(!state.inBattle) return;state.monsterHp -= amount;if(state.monsterHp <= 0) {state.shards += 250;state.inBattle = false;state.currentScene = "victory_scene";alert("THE GLITCH IS PURGED! Global Concerts are UNLOCKED! 🎉");}updateUI();}document.getElementById('stage-click-zone').onclick = () => {if(state.inBattle) dealDamage(state.clickDmg);};function updateUI() {let totalDps = state.mikuDmg + state.tetoDmg + state.gumiDmg;state.clickDmg = 1 + Math.floor(state.mikuLvl / 2) + Math.floor(state.tetoLvl / 2) + Math.floor(state.gumiLvl / 2);document.getElementById('shards-count').innerText = state.shards;document.getElementById('total-dps').innerText = totalDps;document.getElementById('click-dmg-text').innerText = state.clickDmg;document.getElementById('miku-chibi-img').src = images.mikuChibi;document.getElementById('miku-lvl').innerText = state.mikuLvl;document.getElementById('miku-dmg').innerText = state.mikuDmg;document.getElementById('miku-cost').innerText = state.mikuCost;document.getElementById('up-miku-btn').disabled = state.shards < state.mikuCost;const tetoBtn = document.getElementById('up-teto-btn');const tetoAvatar = document.getElementById('teto-chibi-img');if(!state.tetoUnlocked) {document.getElementById('teto-status').innerText = "Locked 🔒";tetoBtn.innerText = Unlock Teto (Cost: ${state.tetoCost});tetoBtn.disabled = state.shards < state.tetoCost;tetoAvatar.src = "placeholder.com🔒";} else {document.getElementById('teto-status').innerText = Lv. ${state.tetoLvl} | Damage: ${state.tetoDmg}/s;tetoBtn.innerText = Upgrade Bread-Saber (Cost: ${state.tetoCost});tetoBtn.disabled = state.shards < state.tetoCost;tetoAvatar.src = images.tetoChibi;}const gumiBtn = document.getElementById('up-gumi-btn');const gumiAvatar = document.getElementById('gumi-chibi-img');if(!state.gumiUnlocked) {document.getElementById('gumi-status').innerText = "Locked 🔒";gumiBtn.innerText = Unlock Gumi (Cost: ${state.gumiCost});gumiBtn.disabled = !state.tetoUnlocked || state.shards < state.gumiCost;gumiAvatar.src = "placeholder.com🔒";} else {document.getElementById('gumi-status').innerText = Lv. ${state.gumiLvl} | Damage: ${state.gumiDmg}/s;gumiBtn.innerText = Upgrade Echo-Headphones (Cost: ${state.gumiCost});gumiBtn.disabled = state.shards < state.gumiCost;gumiAvatar.src = images.gumiChibi;}const bTerminal = document.getElementById('battle-status');const hintText = document.getElementById('click-hint-text');if(state.inBattle) {bTerminal.style.display = "block"; hintText.style.display = "block";document.getElementById('monster-hp').innerText = state.monsterHp;document.getElementById('monster-max').innerText = state.monsterMaxHp;document.getElementById('hp-fill').style.width = ${(state.monsterHp / state.monsterMaxHp) * 100}%;} else {bTerminal.style.display = "none"; hintText.style.display = "none";}let passed = Date.now() - state.lastDaily;if(passed >= 86400000) {document.getElementById('daily-btn').disabled = false;document.getElementById('timer-text').innerText = "Ready!";} else {document.getElementById('daily-btn').disabled = true;let rem = new Date(86400000 - passed);document.getElementById('timer-text').innerText = Next in: ${rem.getUTCHours()}h ${rem.getUTCMinutes()}m;}renderNovel();localStorage.setItem('glitchPopSave', JSON.stringify(state));}function renderNovel() {const scene = script[state.currentScene];document.getElementById('speaker').innerText = scene.name;document.getElementById('story').innerText = scene.text;const mikuImgEl = document.getElementById('miku-img');const sideImgEl = document.getElementById('side-img');if (scene.isBattleScene) {mikuImgEl.className = "sprite-chibi";sideImgEl.className = "monster-sprite";} else {mikuImgEl.className = "sprite-full";sideImgEl.className = "sprite-full";}mikuImgEl.src = scene.miku;sideImgEl.src = scene.side;const box = document.getElementById('choices'); box.innerHTML = "";scene.choices.forEach(c => {const btn = document.createElement('button'); btn.className = "choice-btn"; btn.innerText = c.text;btn.onclick = () => {state.currentScene = c.nextScene;if(script[state.currentScene].action) script[state.currentScene].action();updateUI();};box.appendChild(btn);});}document.getElementById('up-miku-btn').onclick = () => {if(state.shards >= state.mikuCost) {state.shards -= state.mikuCost; state.mikuLvl++; state.mikuDmg += 2; state.mikuCost = Math.round(state.mikuCost * 1.4); updateUI();}};document.getElementById('up-teto-btn').onclick = () => {if(state.shards >= state.tetoCost) {state.shards -= state.tetoCost;if(!state.tetoUnlocked) { state.tetoUnlocked = true; state.tetoLvl = 1; state.tetoDmg = 5; }else { state.tetoLvl++; state.tetoDmg += 6; }state.tetoCost = Math.round(state.tetoCost * 1.5); updateUI();}};document.getElementById('up-gumi-btn').onclick = () => {if(state.shards >= state.gumiCost) {state.shards -= state.gumiCost;if(!state.gumiUnlocked) { state.gumiUnlocked = true; state.gumiLvl = 1; state.gumiDmg = 15; }else { state.gumiLvl++; state.gumiDmg += 18; }state.gumiCost = Math.round(state.gumiCost * 1.6); updateUI();}};document.getElementById('daily-btn').onclick = () => { state.shards += 500; state.lastDaily = Date.now(); updateUI(); };setInterval(() => {let totalDps = state.mikuDmg + state.tetoDmg + state.gumiDmg;if(state.inBattle) dealDamage(totalDps);else if(totalDps > 1) { state.shards += Math.floor(totalDps / 2); updateUI(); }}, 1000);updateUI();
     <script>
-        // EXACT FILE NAMES FROM PHOTOROOM (Case-sensitive!)
         const images = {
             mikuFull: "miku box art- Photoroom.png",
             mikuChibi: "☆ hatsune miku nendoroid- Photoroom.png",
@@ -354,4 +342,7 @@
                 state.shards -= state.gumiCost;
                 if(!state.gumiUnlocked) { state.gumiUnlocked = true; state.gumiLvl = 1; state.gumiDmg = 15; }
                 else { state.gumiLvl++; state.gumiDmg += 18; }
-state.gumiCost = Math.round(state.gumiCost * 1.6); updateUI();}};document.getElementById('daily-btn').onclick = () => { state.shards += 500; state.lastDaily = Date.now(); updateUI(); };setInterval(() => {let totalDps = state.mikuDmg + state.tetoDmg + state.gumiDmg;if(state.inBattle) dealDamage(totalDps);else if(totalDps > 1) { state.shards += Math.floor(totalDps / 2); updateUI(); }}, 1000);updateUI();
+                state.gumiCost = Math.round(state.gumiCost * 1.6); updateUI();
+            }
+        };
+document.getElementById('daily-btn').onclick = () => { state.shards += 500; state.lastDaily = Date.now(); updateUI(); };setInterval(() => {let totalDps = state.mikuDmg + state.tetoDmg + state.gumiDmg;if(state.inBattle) dealDamage(totalDps);else if(totalDps > 1) { state.shards += Math.floor(totalDps / 2); updateUI(); }}, 1000);updateUI();
