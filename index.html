@@ -49,7 +49,6 @@
         <div class="panel">
             <h3>Your Team</h3>
             <div id="team-list">
-                <!-- Карточки будут обновляться через JS, пока оставим структуру -->
                 <div class="character-card miku-card">
                     <div class="card-info"><strong>Hatsune Miku</strong> (Lv. 1)</div>
                 </div>
@@ -86,7 +85,7 @@
         let state = {
             shards: 0, 
             lastDaily: 0, 
-            currentScene: "tokyo_backstage_1", // Начинаем с первой сцены сюжета
+            currentScene: "tokyo_backstage_1", 
             inBattle: false, 
             monsterHp: 100, 
             monsterMaxHp: 100, 
@@ -106,7 +105,7 @@
         };
 
         const script = {
-            // --- ТОКИО: НАЧАЛО ---
+            // --- ТОКИО ---
             tokyo_backstage_1: {
                 name: "Luka (Secretary)",
                 text: "Miku! The Tokyo Arena is packed! Thousands of fans are screaming your name right now!",
@@ -143,8 +142,6 @@
                 isBattleScene: false,
                 nextScene: "glitch_arrival"
             },
-
-            // --- ПОПАДАНИЕ В ГЛИТЧ-МИР ---
             glitch_arrival: {
                 name: "Miku",
                 text: "W-where am I? Everything looks like neon pixels and corrupted code... Is this a glitch world?!",
@@ -163,8 +160,6 @@
                 isBattleScene: true, 
                 nextScene: "tokyo_battle_clear"
             },
-
-            // --- ПОБЕДА В ТОКИО И СБОР КОМАНДЫ ---
             tokyo_battle_clear: {
                 name: "Miku",
                 text: "We did it! The Tokyo stage data is restored! But the portal to the real world is still locked...",
@@ -191,86 +186,10 @@
             },
             miku_explains: {
                 name: "Miku",
-    // --- ПАРИЖ: ТЭТО ---
-    paris_arrival: {
-        name: "System",
-        text: "TELEPORTING... Location: Paris, France. Status: Heavily Glitched.",
-        isBattleScene: false,
-        nextScene: "paris_teto_mad"
-    },
-    paris_teto_mad: {
-        name: "Teto",
-        text: "Look at the Eiffel Tower, it's turning into giant pink pixels! This is unacceptable!",
-        isBattleScene: false,
-        nextScene: "paris_gumi_ready"
-    },
-    paris_gumi_ready: {
-        name: "Gumi",
-        text: "Don't worry, Teto! With your baguette and our beats, we can crush these glitch bugs!",
-        isBattleScene: false,
-        nextScene: "paris_battle_ready"
-    },
-    paris_battle_ready: {
-        name: "Teto",
-        text: "Time for a French revolution! Let's clear the stage!",
-        isBattleScene: true, // Вторая битва (Босс: Глитч Париж)
-        nextScene: "paris_battle_clear"
-    },
-    paris_battle_clear: {
-        name: "Teto",
-        text: "Magnifique! Paris is saved. Now, Gumi, it's time to take back your city!",
-        isBattleScene: false,
-        nextScene: "ny_arrival"
-    },
-
-    // --- НЬЮ-ЙОРК: ГУМИ ---
-    ny_arrival: {
-        name: "System",
-        text: "TELEPORTING... Location: New York, USA. Status: Critical Corruption.",
-        isBattleScene: false,
-        nextScene: "ny_gumi_shock"
-    },
-    ny_gumi_shock: {
-        name: "Gumi",
-        text: "Oh man, Times Square looks like a broken retro monitor. The main music database is right here!",
-        isBattleScene: false,
-        nextScene: "ny_miku_support"
-    },
-    ny_miku_support: {
-        name: "Miku",
-        text: "This is the final stretch, girls! If we clean this up, the portal home will open!",
-        isBattleScene: false,
-        nextScene: "ny_battle_ready"
-    },
-    ny_battle_ready: {
-        name: "Gumi",
-        text: "Let's turn up the volume and delete this glitch forever! Let's go!",
-        isBattleScene: true, // Третья битва (Финальный Босс)
-        nextScene: "game_final_1"
-    },
-
-    // --- ФИНАЛ ---
-    game_final_1: {
-        name: "System",
-        text: "SUCCESS: All glitch nodes destroyed. Reality restoration complete. World Tour resumed.",
-        isBattleScene: false,
-        nextScene: "game_final_2"
-    },
-    game_final_2: {
-        name: "Miku",
-        text: "We did it! The Tokyo Arena is normal again, and my microphone is fixed! Thank you, everyone!",
-        isBattleScene: false,
-        nextScene: "game_final_3"
-    },
-    game_final_3: {
-        name: "Teto & Gumi",
-        text: "That was the best Glitch-Pop tour ever! See you at the next concert!",
-        isBattleScene: false,
-        nextScene: "game_end"
-    },
-    game_end: {
-        name: "System",
-        text: "THE END. Thanks for playing Glitch-Pop!",
-        isBattleScene: false,
-        nextScene: null
-    }
+                text: "Girls, my microphone broke and dragged us all here! To escape, we must clear the glitch from all our tour cities!",
+                isBattleScene: false,
+                nextScene: "world_tour_plan"
+            },
+            world_tour_plan: {
+                name: "Teto",
+text: "A Glitch World Tour? Sounds like a challenge! Next stop is Paris, my city. Let's show these monsters what we can do!",isBattleScene: false,nextScene: "paris_arrival"},// --- ПАРИЖ ---paris_arrival: {name: "System",text: "TELEPORTING... Location: Paris, France. Status: Heavily Glitched.",isBattleScene: false,nextScene: "paris_teto_mad"},paris_teto_mad: {name: "Teto",text: "Look at the Eiffel Tower, it's turning into giant pink pixels! This is unacceptable!",isBattleScene: false,nextScene: "paris_gumi_ready"},paris_gumi_ready: {name: "Gumi",text: "Don't worry, Teto! With your baguette and our beats, we can crush these glitch bugs!",isBattleScene: false,nextScene: "paris_battle_ready"},paris_battle_ready: {name: "Teto",text: "Time for a French revolution! Let's clear the stage!",isBattleScene: true,nextScene: "paris_battle_clear"},paris_battle_clear: {name: "Teto",text: "Magnifique! Paris is saved. Now, Gumi, it's time to take back your city!",isBattleScene: false,nextScene: "ny_arrival"},// --- НЬЮ-ЙОРК ---ny_arrival: {name: "System",text: "TELEPORTING... Location: New York, USA. Status: Critical Corruption.",isBattleScene: false,nextScene: "ny_gumi_shock"},ny_gumi_shock: {name: "Gumi",text: "Oh man, Times Square looks like a broken retro monitor. The main music database is right here!",isBattleScene: false,nextScene: "ny_miku_support"},ny_miku_support: {name: "Miku",text: "This is the final stretch, girls! If we clean this up, the portal home will open!",isBattleScene: false,nextScene: "ny_battle_ready"},ny_battle_ready: {name: "Gumi",text: "Let's turn up the volume and delete this glitch forever! Let's go!",isBattleScene: true,nextScene: "game_final_1"},// --- ФИНАЛ ---game_final_1: {name: "System",text: "SUCCESS: All glitch nodes destroyed. Reality restoration complete. World Tour resumed.",isBattleScene: false,nextScene: "game_final_2"},game_final_2: {name: "Miku",text: "We did it! The Tokyo Arena is normal again, and my microphone is fixed! Thank you, everyone!",isBattleScene: false,nextScene: "game_final_3"},game_final_3: {name: "Teto & Gumi",text: "That was the best Glitch-Pop tour ever! See you at the next concert!",isBattleScene: false,nextScene: "game_end"},game_end: {name: "System",text: "THE END. Thanks for playing Glitch-Pop!",isBattleScene: false,nextScene: null}};function renderScene() {let scene = script[state.currentScene];if (scene) {document.getElementById("speaker").innerText = scene.name;document.getElementById("story").innerText = scene.text;if(scene.name.includes("Miku")) document.getElementById("speaker").style.color = "#00ffff";else if(scene.name.includes("Luka")) document.getElementById("speaker").style.color = "#ffb6c1";else if(scene.name.includes("Teto")) document.getElementById("speaker").style.color = "#ff0055";else if(scene.name.includes("Gumi")) document.getElementById("speaker").style.color = "#a3ff00";else document.getElementById("speaker").style.color = "#39ff14";}}function nextDialogue() {let scene = script[state.currentScene];if (scene && scene.nextScene && !scene.isBattleScene) {state.currentScene = scene.nextScene;renderScene();}}window.onload = function() {renderScene();};
