@@ -8,279 +8,249 @@
         .studio-header-box { text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(255, 105, 180, 0.05); border-radius: 8px; }
         .studio-tag { color: #ff69b4; font-size: 28px; font-weight: bold; text-transform: uppercase; margin: 0; text-shadow: 0 0 15px rgba(255, 105, 180, 0.5); }
         .studio-desc { color: #f8fafc; font-size: 15px; max-width: 600px; margin: 10px auto auto; line-height: 1.6; }
-        .studio-logo { max-width: 280px; display: block; margin: 0 auto; filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.3)); border-radius: 8px; }
         .game-title { text-align: center; font-size: 46px; font-weight: 900; color: #00ffff; text-shadow: 0 0 15px #00ffff, 3px 3px #ff00ff; margin-bottom: 5px; }
         .sub-title { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
         .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .panel { background: #0b151b; padding: 20px; border-radius: 12px; border: 2px solid #00ffff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); }
         .character-card { background: #11202a; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid #334155; display: flex; align-items: center; }
-        .chibi-avatar { width: 55px; height: 55px; object-fit: contain; margin-right: 12px; filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2)); }
-        .card-info { flex-grow: 1; }
-        .miku-card { border-left-color: #39ff14; }
-        .teto-card { border-left-color: #ff0055; }
-        .gumi-card { border-left-color: #a3ff00; }
         .game-screen { background: #03070a; border-radius: 12px; border: 1px solid #1e293b; overflow: hidden; display: flex; flex-direction: column; height: 500px; position: relative; }
-        .stage-area { height: 65%; background: linear-gradient(180deg, #060b0e 0%, #122533 100%); display: flex; justify-content: space-between; align-items: flex-end; padding: 0 40px; position: relative; }
-        .stage-area:active { background: linear-gradient(180deg, #060b0e 0%, #1c364a 100%); }
-        .sprite-full { max-height: 95%; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.3)); transition: transform 0.1s; }
-        .sprite-chibi { max-height: 50%; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.3)); transition: transform 0.1s; }
-        .sprite-chibi:active { transform: scale(0.9) translateY(-10px); }
-        .monster-sprite { max-height: 55%; filter: drop-shadow(0 0 12px #ff0055); }
+        .stage-area { height: 65%; background: linear-gradient(180deg, #060b0e 0%, #122533 100%); display: flex; justify-content: center; align-items: flex-end; padding: 0 40px; position: relative; }
+        .sprite-full { max-height: 95%; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.3)); }
         .dialogue-box { background: rgba(11, 21, 27, 0.95); padding: 15px; border-top: 3px solid #39ff14; height: 35%; box-sizing: border-box; display: flex; flex-direction: column; cursor: pointer; }
-        #speaker { font-weight: bold; color: #39ff14; font-size: 18px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        #speaker { font-weight: bold; color: #39ff14; font-size: 18px; margin-bottom: 8px; text-transform: uppercase; }
         #story { font-size: 15px; line-height: 1.5; color: #f1f5f9; flex-grow: 1; }
-        #choices { display: flex; gap: 10px; margin-top: 5px; }
-        .choice-btn { background: #1e293b; color: #00ffff; border: 1px solid #00ffff; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; }
-        .choice-btn:hover { background: #00ffff; color: #03070a; }
     </style>
 </head>
 <body>
-
     <div class="studio-header-box">
         <h1 class="studio-tag">Pink Pudding Studio</h1>
         <p class="studio-desc">Welcome to our official fan game development page!</p>
     </div>
-
     <h2 class="game-title">GLITCH-POP!</h2>
-    <p class="sub-title">Vocaloid Multiverse Glitch Adventure</p>
-
     <div class="main-layout">
-        <!-- Левая панель: Персонажи и Прокачка -->
         <div class="panel">
             <h3>Your Team</h3>
             <div id="team-list">
-                <div class="character-card miku-card">
-                    <div class="card-info"><strong>Hatsune Miku</strong> (Lv. 1)</div>
-                </div>
+                <div class="character-card">Hatsune Miku (Lv. 1)</div>
             </div>
         </div>
-
-        <!-- Правая панель: Игровой экран -->
         <div class="game-screen">
-            <div class="stage-area" id="stage">
-                <!-- Тут будут появляться спрайты персонажей и монстров -->
-            </div>
-            
+            <div class="stage-area" id="stage"></div>
             <div class="dialogue-box" onclick="nextDialogue()">
                 <div id="speaker">System</div>
                 <div id="story">System initializing... Click to start.</div>
-                <div id="choices"></div>
             </div>
         </div>
     </div>
-
     <script>
-       function renderScene() {
-    let scene = script[state.currentScene];
-    if (scene) {
-        document.getElementById("speaker").innerText = scene.name;
-        document.getElementById("story").innerText = scene.text;
-        
-        // Красим имена персонажей в их фирменные цвета
-        let speakerEl = document.getElementById("speaker");
-        if (scene.name.includes("Miku")) speakerEl.style.color = "#00ffff";
-        else if (scene.name.includes("Luka")) speakerEl.style.color = "#ffb6c1";
-        else if (scene.name.includes("Teto")) speakerEl.style.color = "#ff0055";
-        else if (scene.name.includes("Gumi")) speakerEl.style.color = "#a3ff00";
-        else speakerEl.style.color = "#39ff14";
-    }
-           
-} 
-        const script = {
-            // --- ТОКИО ---
-            tokyo_backstage_1: {
+        const images = {
+            mikuFull: "miku box art- Photoroom.png",
+            mikuChibi: "hatsune miku nendoroid- Photoroom.png",
+            tetoFull: "Kasane Teto PNG!-Photoroom.png",
+            tetoChibi: "teto_nendo_chibi.png", 
+            gumiFull: "8936899254747440-Photoroom.png",
+            gumiChibi: "-Photoroom.png", 
+            lukaFull: "77968637294843427-Photoroom.png",
+            lukaChibi: "megurine luka nendoroid-Photoroom.png",
+            monster: "https://placeholder.com"
+      
+        let state = { currentScene: "tokyo_backstage_1", monsterHp: 100, monsterMaxHp: 100 };
+        };
+          tokyo_backstage_1: {
                 name: "Luka (Secretary)",
                 text: "Miku! The Tokyo Arena is packed! Thousands of fans are screaming your name right now!",
-                isBattleScene: false,
-                nextScene: "tokyo_backstage_2"
+                isBattleScene: false, nextScene: "tokyo_backstage_2"
             },
             tokyo_backstage_2: {
                 name: "Luka (Secretary)",
                 text: "But... look at this! Your favorite microphone with the Leek sticker is totally fried and broken!",
-                isBattleScene: false,
-                nextScene: "tokyo_miku_shock"
+                isBattleScene: false, nextScene: "tokyo_miku_shock"
             },
             tokyo_miku_shock: {
                 name: "Miku",
                 text: "Oh no! Not my lucky leek microphone! The concert is starting in a few minutes, what should I do?!",
-                isBattleScene: false,
-                nextScene: "tokyo_luka_advice"
+                isBattleScene: false, nextScene: "tokyo_luka_advice"
             },
             tokyo_luka_advice: {
                 name: "Luka (Secretary)",
                 text: "Don't panic, Miku. Try to pick up the pieces. Maybe we can fix it before the curtains rise.",
-                isBattleScene: false,
-                nextScene: "tokyo_glitch_start"
+                isBattleScene: false, nextScene: "tokyo_glitch_start"
             },
             tokyo_glitch_start: {
                 name: "Miku",
                 text: "Okay, let me gather the shards... Wait, what is happening?! The broken pieces are glowing with a strange purple light!",
-                isBattleScene: false,
-                nextScene: "tokyo_glitch_portal"
+                isBattleScene: false, nextScene: "tokyo_glitch_portal"
             },
             tokyo_glitch_portal: {
                 name: "System",
                 text: "WARNING: Reality distortion detected. Dimensional rift opening... 3... 2... 1...",
-                isBattleScene: false,
-                nextScene: "glitch_arrival"
+                isBattleScene: false, nextScene: "glitch_arrival"
             },
             glitch_arrival: {
                 name: "Miku",
                 text: "W-where am I? Everything looks like neon pixels and corrupted code... Is this a glitch world?!",
-                isBattleScene: false,
-                nextScene: "glitch_system_alert"
+                isBattleScene: false, nextScene: "glitch_system_alert"
             },
             glitch_system_alert: {
                 name: "System",
                 text: "ERROR 404: Tokyo Concert canceled. Glitch Monsters have corrupted the music core. Defeat them to restore reality!",
-                isBattleScene: false,
-                nextScene: "tokyo_battle_ready"
+                isBattleScene: false, nextScene: "tokyo_battle_ready"
             },
             tokyo_battle_ready: {
                 name: "Miku",
                 text: "I won't let some digital monsters ruin my concert! Time to sing and fight back!",
-                isBattleScene: true, 
-                nextScene: "tokyo_battle_clear"
+                isBattleScene: true, nextScene: "tokyo_battle_clear"
             },
             tokyo_battle_clear: {
                 name: "Miku",
                 text: "We did it! The Tokyo stage data is restored! But the portal to the real world is still locked...",
-                isBattleScene: false,
-                nextScene: "friends_falling"
+                isBattleScene: false, nextScene: "friends_falling"
             },
             friends_falling: {
                 name: "System",
                 text: "ALERT: New anomalies detected. Object 'Teto' and Object 'Gumi' have been sucked into the Glitch World.",
-                isBattleScene: false,
-                nextScene: "friends_meet"
+                isBattleScene: false, nextScene: "friends_meet"
             },
             friends_meet: {
                 name: "Teto",
                 text: "Ouch! That hurt! Hey, where is my French baguette?! ...Wait, Miku? Is that you?",
-                isBattleScene: false,
-                nextScene: "gumi_meet"
+                isBattleScene: false, nextScene: "gumi_meet"
             },
             gumi_meet: {
                 name: "Gumi",
                 text: "Whoa, this place is wild! I was just getting ready for my show in New York, and suddenly everything went pixelated!",
-                isBattleScene: false,
-                nextScene: "miku_explains"
+                isBattleScene: false, nextScene: "miku_explains"
             },
             miku_explains: {
                 name: "Miku",
                 text: "Girls, my microphone broke and dragged us all here! To escape, we must clear the glitch from all our tour cities!",
-                isBattleScene: false,
-                nextScene: "world_tour_plan"
+                isBattleScene: false, nextScene: "world_tour_plan"
             },
             world_tour_plan: {
                 name: "Teto",
                 text: "A Glitch World Tour? Sounds like a challenge! Next stop is Paris, my city. Let's show these monsters what we can do!",
-                isBattleScene: false,
-                nextScene: "paris_arrival" 
+                isBattleScene: false, nextScene: "paris_arrival"
             },
-
             // --- ПАРИЖ ---
             paris_arrival: {
                 name: "System",
                 text: "TELEPORTING... Location: Paris, France. Status: Heavily Glitched.",
-                isBattleScene: false,
-                nextScene: "paris_teto_mad"
+                isBattleScene: false, nextScene: "paris_teto_mad"
             },
             paris_teto_mad: {
                 name: "Teto",
                 text: "Look at the Eiffel Tower, it's turning into giant pink pixels! This is unacceptable!",
-                isBattleScene: false,
-                nextScene: "paris_gumi_ready"
+                isBattleScene: false, nextScene: "paris_gumi_ready"
             },
             paris_gumi_ready: {
                 name: "Gumi",
                 text: "Don't worry, Teto! With your baguette and our beats, we can crush these glitch bugs!",
-                isBattleScene: false,
-                nextScene: "paris_battle_ready"
+                isBattleScene: false, nextScene: "paris_battle_ready"
             },
             paris_battle_ready: {
                 name: "Teto",
                 text: "Time for a French revolution! Let's clear the stage!",
-                isBattleScene: true, 
-                nextScene: "paris_battle_clear"
+                isBattleScene: true, nextScene: "paris_battle_clear"
             },
             paris_battle_clear: {
                 name: "Teto",
                 text: "Magnifique! Paris is saved. Now, Gumi, it's time to take back your city!",
-                isBattleScene: false,
-                nextScene: "ny_arrival"
+                isBattleScene: false, nextScene: "ny_arrival"
             },
 
             // --- НЬЮ-ЙОРК ---
             ny_arrival: {
                 name: "System",
                 text: "TELEPORTING... Location: New York, USA. Status: Critical Corruption.",
-                isBattleScene: false,
-                nextScene: "ny_gumi_shock"
+                isBattleScene: false, nextScene: "ny_gumi_shock"
             },
             ny_gumi_shock: {
                 name: "Gumi",
                 text: "Oh man, Times Square looks like a broken retro monitor. The main music database is right here!",
-                isBattleScene: false,
-                nextScene: "ny_miku_support"
+                isBattleScene: false, nextScene: "ny_miku_support"
             },
             ny_miku_support: {
                 name: "Miku",
                 text: "This is the final stretch, girls! If we clean this up, the portal home will open!",
-                isBattleScene: false,
-                nextScene: "ny_battle_ready"
+                isBattleScene: false, nextScene: "ny_battle_ready"
             },
             ny_battle_ready: {
                 name: "Gumi",
                 text: "Let's turn up the volume and delete this glitch forever! Let's go!",
-                isBattleScene: true, 
-                nextScene: "game_final_1"
+                isBattleScene: true, nextScene: "game_final_1"
             },
 
             // --- ФИНАЛ ---
             game_final_1: {
                 name: "System",
                 text: "SUCCESS: All glitch nodes destroyed. Reality restoration complete. World Tour resumed.",
-                isBattleScene: false,
-                nextScene: "game_final_2"
+                isBattleScene: false, nextScene: "game_final_2"
             },
             game_final_2: {
                 name: "Miku",
                 text: "We did it! The Tokyo Arena is normal again, and my microphone is fixed! Thank you, everyone!",
-                isBattleScene: false,
-                nextScene: "game_final_3"
+                isBattleScene: false, nextScene: "game_final_3"
             },
             game_final_3: {
                 name: "Teto & Gumi",
                 text: "That was the best Glitch-Pop tour ever! See you at the next concert!",
-                isBattleScene: false,
-                nextScene: "game_end"
+                isBattleScene: false, nextScene: "game_end"
             },
             game_end: {
                 name: "System",
                 text: "THE END. Thanks for playing Glitch-Pop!",
-                isBattleScene: false,
-                nextScene: null
+                isBattleScene: false, nextScene: null
             }
         };
 
-function nextDialogue() {
-    let scene = script[state.currentScene];
-    
-    // Если сцена существует и у неё есть следующая сцена
-    if (scene && scene.nextScene) {
-        // Если это сцена битвы, клик по диалогу не должен её пропускать
-        if (scene.isBattleScene) {
-            return; 
-        }
-        state.currentScene = scene.nextScene;
-        renderScene();
-    }
-}
+        // ЛОГИКА ДВИЖКА ИГРЫ
+        function renderScene() {
+            let scene = script[state.currentScene];
+            if (!scene) return;
 
-// Запускаем отрисовку ПЕРВОЙ сцены сразу же при загрузке страницы
-document.addEventListener("DOMContentLoaded", function() {
-    renderScene();
-});
-        const script = {
-           
+            document.getElementById("speaker").innerText = scene.name;
+            document.getElementById("story").innerText = scene.text;
+            
+            let stage = document.getElementById("stage");
+            stage.innerHTML = ""; 
+
+            let spriteImg = document.createElement("img");
+            spriteImg.className = "sprite-full";
+
+            let speakerEl = document.getElementById("speaker");
+            
+            if (scene.name.includes("Miku")) {
+                speakerEl.style.color = "#00ffff";
+                spriteImg.src = images.mikuFull;
+                stage.appendChild(spriteImg);
+            } else if (scene.name.includes("Luka")) {
+                speakerEl.style.color = "#ffb6c1";
+                spriteImg.src = images.lukaFull;
+                stage.appendChild(spriteImg);
+            } else if (scene.name.includes("Teto")) {
+                speakerEl.style.color = "#ff0055";
+                spriteImg.src = images.tetoFull;
+                stage.appendChild(spriteImg);
+            } else if (scene.name.includes("Gumi")) {
+                speakerEl.style.color = "#a3ff00";
+                spriteImg.src = images.gumiFull;
+                stage.appendChild(spriteImg);
+            } else {
+                speakerEl.style.color = "#39ff14";
+            }
+        }
+
+        function nextDialogue() {
+            let scene = script[state.currentScene];
+            if (scene && scene.nextScene && !scene.isBattleScene) {
+                state.currentScene = scene.nextScene;
+                renderScene();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            renderScene();
+        });
+    </script>
+</body>
+</html>
