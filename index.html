@@ -2,255 +2,413 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Glitch-Pop! (Vocaloid Fan Game by Pink Pudding Studio)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neko Websites — Meow-gical Internet Directory</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #060b0e; color: #e1f5fe; padding: 20px; max-width: 1000px; margin: 0 auto; }
-        .studio-header-box { text-align: center; margin-bottom: 30px; padding: 20px; background: rgba(255, 105, 180, 0.05); border-radius: 8px; }
-        .studio-tag { color: #ff69b4; font-size: 28px; font-weight: bold; text-transform: uppercase; margin: 0; text-shadow: 0 0 15px rgba(255, 105, 180, 0.5); }
-        .studio-desc { color: #f8fafc; font-size: 15px; max-width: 600px; margin: 10px auto auto; line-height: 1.6; }
-        .game-title { text-align: center; font-size: 46px; font-weight: 900; color: #00ffff; text-shadow: 0 0 15px #00ffff, 3px 3px #ff00ff; margin-bottom: 5px; }
-        .sub-title { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
-        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .panel { background: #0b151b; padding: 20px; border-radius: 12px; border: 2px solid #00ffff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); }
-        .character-card { background: #11202a; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid #334155; display: flex; align-items: center; }
-        .game-screen { background: #03070a; border-radius: 12px; border: 1px solid #1e293b; overflow: hidden; display: flex; flex-direction: column; height: 500px; position: relative; }
-        .stage-area { height: 65%; background: linear-gradient(180deg, #060b0e 0%, #122533 100%); display: flex; justify-content: center; align-items: flex-end; padding: 0 40px; position: relative; }
-        .sprite-full { max-height: 95%; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.3)); }
-        .dialogue-box { background: rgba(11, 21, 27, 0.95); padding: 15px; border-top: 3px solid #39ff14; height: 35%; box-sizing: border-box; display: flex; flex-direction: column; cursor: pointer; }
-        #speaker { font-weight: bold; color: #39ff14; font-size: 18px; margin-bottom: 8px; text-transform: uppercase; }
-        #story { font-size: 15px; line-height: 1.5; color: #f1f5f9; flex-grow: 1; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff9fa;
+            color: #4a4a4a;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px 10px 20px;
+            background: #ffffff;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #ff6b8b;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px #ffe4e1;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            color: #a19597;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+      
+        .neko-banner-container {
+            text-align: center;
+            margin: 15px auto;
+            max-width: 220px; 
+        }
+
+        .neko-gif {
+            width: 100%;
+            height: auto;
+            border-radius: 15px; 
+            border: 4px solid #ffb6c1;
+            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .neko-gif:hover {
+            transform: scale(1.05) translateY(-5px); 
+        }
+
+      
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 20px 30px 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background-color: #ffffff;
+            border: 2px solid #ffb6c1;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #ff6b8b;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background-color: #ff6b8b;
+            color: white;
+            border-color: #ff6b8b;
+            box-shadow: 0 4px 10px rgba(255, 107, 139, 0.3);
+        }
+
+       
+        .catalog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            flex-grow: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .site-card {
+            background: white;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 6px 18px rgba(255, 182, 193, 0.15);
+            border: 2px solid #fff0f2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .site-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffb6c1;
+        }
+
+        .card-content h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: #776a6c;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .tag {
+            background: #fff0f2;
+            color: #ff6b8b;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .visit-btn {
+            display: inline-block;
+            text-align: center;
+            background: #ff6b8b;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .visit-btn:hover {
+            background: #ff4770;
+        }
+
+       
+        .like-btn {
+            background: none;
+            border: 2px solid #ffe4e1;
+            border-radius: 12px;
+            cursor: pointer;
+            padding: 8px 12px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            color: #666;
+        }
+
+        .like-btn:hover {
+            border-color: #ff6b8b;
+            transform: scale(1.05);
+        }
+
+        .like-btn.liked {
+            background: #fff0f2;
+            border-color: #ff6b8b;
+            color: #ff6b8b;
+            font-weight: bold;
+        }
+
+      
+        .pudding-footer {
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: 60px;
+            background-color: #ffffff;
+            border-top: 3px dashed #ffb6c1;
+            font-size: 0.95rem;
+            color: #776a6c;
+        }
+
+        .jiggle-pudding {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .jiggle-pudding:hover {
+            animation: jelly 0.5s infinite;
+        }
+
+        @keyframes jelly {
+            0% { transform: scale(1, 1); }
+            30% { transform: scale(1.25, 0.75); }
+            40% { transform: scale(0.75, 1.25); }
+            50% { transform: scale(1.15, 0.85); }
+            65% { transform: scale(0.95, 1.05); }
+            75% { transform: scale(1.05, 0.95); }
+            100% { transform: scale(1, 1); }
+        }
     </style>
 </head>
 <body>
-    <div class="studio-header-box">
-        <h1 class="studio-tag">Pink Pudding Studio</h1>
-        <p class="studio-desc">Welcome to our official fan game development page!</p>
+
+    
+    <header>
+        <h1>🐾 Neko Websites</h1>
+        <p>A magical place to find awesome websites, curated by cats! Meow~</p>
+    </header>
+
+
+    <div class="neko-banner-container">
+        <img class="neko-gif" src="cat.jpg" alt="Excited Ginger Neko">
     </div>
-    <h2 class="game-title">GLITCH-POP!</h2>
-    <div class="main-layout">
-        <div class="panel">
-            <h3>Your Team</h3>
-            <div id="team-list">
-                <div class="character-card">Hatsune Miku (Lv. 1)</div>
-            </div>
-        </div>
-        <div class="game-screen">
-            <div class="stage-area" id="stage"></div>
-            <div class="dialogue-box" onclick="nextDialogue()">
-                <div id="speaker">System</div>
-                <div id="story">System initializing... Click to start.</div>
-            </div>
-        </div>
+
+  
+    <div class="categories">
+        <button class="category-btn active" onclick="filterCategory('all')"> All Sites</button>
+        <button class="category-btn" onclick="filterCategory('studios')"> 🍮my Studio webs!</button>
+        <button class="category-btn" onclick="filterCategory('games')"> Fun & Games</button>
+        <button class="category-btn" onclick="filterCategory('cool-stuff')">✨ Cool Stuff</button>
     </div>
-    <script>
-        const images = {
-            mikuFull: "miku box art- Photoroom.png",
-            mikuChibi: "hatsune miku nendoroid- Photoroom.png",
-            tetoFull: "Kasane Teto PNG!-Photoroom.png",
-            tetoChibi: "teto_nendo_chibi.png", 
-            gumiFull: "8936899254747440-Photoroom.png",
-            gumiChibi: "-Photoroom.png", 
-            lukaFull: "77968637294843427-Photoroom.png",
-            lukaChibi: "megurine luka nendoroid-Photoroom.png",
-            monster: "https://placeholder.com"
+
+  
+    <main class="catalog-container" id="catalog">
+        
       
-        let state = { currentScene: "tokyo_backstage_1", monsterHp: 100, monsterMaxHp: 100 };
-        };
-          tokyo_backstage_1: {
-                name: "Luka (Secretary)",
-                text: "Miku! The Tokyo Arena is packed! Thousands of fans are screaming your name right now!",
-                isBattleScene: false, nextScene: "tokyo_backstage_2"
-            },
-            tokyo_backstage_2: {
-                name: "Luka (Secretary)",
-                text: "But... look at this! Your favorite microphone with the Leek sticker is totally fried and broken!",
-                isBattleScene: false, nextScene: "tokyo_miku_shock"
-            },
-            tokyo_miku_shock: {
-                name: "Miku",
-                text: "Oh no! Not my lucky leek microphone! The concert is starting in a few minutes, what should I do?!",
-                isBattleScene: false, nextScene: "tokyo_luka_advice"
-            },
-            tokyo_luka_advice: {
-                name: "Luka (Secretary)",
-                text: "Don't panic, Miku. Try to pick up the pieces. Maybe we can fix it before the curtains rise.",
-                isBattleScene: false, nextScene: "tokyo_glitch_start"
-            },
-            tokyo_glitch_start: {
-                name: "Miku",
-                text: "Okay, let me gather the shards... Wait, what is happening?! The broken pieces are glowing with a strange purple light!",
-                isBattleScene: false, nextScene: "tokyo_glitch_portal"
-            },
-            tokyo_glitch_portal: {
-                name: "System",
-                text: "WARNING: Reality distortion detected. Dimensional rift opening... 3... 2... 1...",
-                isBattleScene: false, nextScene: "glitch_arrival"
-            },
-            glitch_arrival: {
-                name: "Miku",
-                text: "W-where am I? Everything looks like neon pixels and corrupted code... Is this a glitch world?!",
-                isBattleScene: false, nextScene: "glitch_system_alert"
-            },
-            glitch_system_alert: {
-                name: "System",
-                text: "ERROR 404: Tokyo Concert canceled. Glitch Monsters have corrupted the music core. Defeat them to restore reality!",
-                isBattleScene: false, nextScene: "tokyo_battle_ready"
-            },
-            tokyo_battle_ready: {
-                name: "Miku",
-                text: "I won't let some digital monsters ruin my concert! Time to sing and fight back!",
-                isBattleScene: true, nextScene: "tokyo_battle_clear"
-            },
-            tokyo_battle_clear: {
-                name: "Miku",
-                text: "We did it! The Tokyo stage data is restored! But the portal to the real world is still locked...",
-                isBattleScene: false, nextScene: "friends_falling"
-            },
-            friends_falling: {
-                name: "System",
-                text: "ALERT: New anomalies detected. Object 'Teto' and Object 'Gumi' have been sucked into the Glitch World.",
-                isBattleScene: false, nextScene: "friends_meet"
-            },
-            friends_meet: {
-                name: "Teto",
-                text: "Ouch! That hurt! Hey, where is my French baguette?! ...Wait, Miku? Is that you?",
-                isBattleScene: false, nextScene: "gumi_meet"
-            },
-            gumi_meet: {
-                name: "Gumi",
-                text: "Whoa, this place is wild! I was just getting ready for my show in New York, and suddenly everything went pixelated!",
-                isBattleScene: false, nextScene: "miku_explains"
-            },
-            miku_explains: {
-                name: "Miku",
-                text: "Girls, my microphone broke and dragged us all here! To escape, we must clear the glitch from all our tour cities!",
-                isBattleScene: false, nextScene: "world_tour_plan"
-            },
-            world_tour_plan: {
-                name: "Teto",
-                text: "A Glitch World Tour? Sounds like a challenge! Next stop is Paris, my city. Let's show these monsters what we can do!",
-                isBattleScene: false, nextScene: "paris_arrival"
-            },
-            // --- ПАРИЖ ---
-            paris_arrival: {
-                name: "System",
-                text: "TELEPORTING... Location: Paris, France. Status: Heavily Glitched.",
-                isBattleScene: false, nextScene: "paris_teto_mad"
-            },
-            paris_teto_mad: {
-                name: "Teto",
-                text: "Look at the Eiffel Tower, it's turning into giant pink pixels! This is unacceptable!",
-                isBattleScene: false, nextScene: "paris_gumi_ready"
-            },
-            paris_gumi_ready: {
-                name: "Gumi",
-                text: "Don't worry, Teto! With your baguette and our beats, we can crush these glitch bugs!",
-                isBattleScene: false, nextScene: "paris_battle_ready"
-            },
-            paris_battle_ready: {
-                name: "Teto",
-                text: "Time for a French revolution! Let's clear the stage!",
-                isBattleScene: true, nextScene: "paris_battle_clear"
-            },
-            paris_battle_clear: {
-                name: "Teto",
-                text: "Magnifique! Paris is saved. Now, Gumi, it's time to take back your city!",
-                isBattleScene: false, nextScene: "ny_arrival"
-            },
+        <div class="site-card" data-category="games" id="site-emoji-translate">
+            <div class="card-content">
+                <h3>Emoji Translator</h3>
+                <p>A whimsical digital tool that transforms your normal text into a colorful parade of emojis, pizza, unicorns, and dancing figures! 🎨😄🚀</p>
+                <div class="tags">
+                    <span class="tag">#emojis</span>
+                    <span class="tag">#translator</span>
+                    <span class="tag">#fun</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-emoji-translate')">🤍 <span class="like-count">64</span></button>
+            </div>
+        </div>
 
-            // --- НЬЮ-ЙОРК ---
-            ny_arrival: {
-                name: "System",
-                text: "TELEPORTING... Location: New York, USA. Status: Critical Corruption.",
-                isBattleScene: false, nextScene: "ny_gumi_shock"
-            },
-            ny_gumi_shock: {
-                name: "Gumi",
-                text: "Oh man, Times Square looks like a broken retro monitor. The main music database is right here!",
-                isBattleScene: false, nextScene: "ny_miku_support"
-            },
-            ny_miku_support: {
-                name: "Miku",
-                text: "This is the final stretch, girls! If we clean this up, the portal home will open!",
-                isBattleScene: false, nextScene: "ny_battle_ready"
-            },
-            ny_battle_ready: {
-                name: "Gumi",
-                text: "Let's turn up the volume and delete this glitch forever! Let's go!",
-                isBattleScene: true, nextScene: "game_final_1"
-            },
+    
+        <div class="site-card" data-category="games" id="site-spin-wheel">
+            <div class="card-content">
+                <h3>Spin The Wheel</h3>
+                <p>Can't make up your mind? Create custom spin wheels for games, giveaways, or deciding what to do next. Let the fortune wheel decide! 🎡</p>
+                <div class="tags">
+                    <span class="tag">#randomizer</span>
+                    <span class="tag">#decision-making</span>
+                    <span class="tag">#interactive</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://spinthewheel.app" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-spin-wheel')">🤍 <span class="like-count">42</span></button>
+            </div>
+        </div>
 
-            // --- ФИНАЛ ---
-            game_final_1: {
-                name: "System",
-                text: "SUCCESS: All glitch nodes destroyed. Reality restoration complete. World Tour resumed.",
-                isBattleScene: false, nextScene: "game_final_2"
-            },
-            game_final_2: {
-                name: "Miku",
-                text: "We did it! The Tokyo Arena is normal again, and my microphone is fixed! Thank you, everyone!",
-                isBattleScene: false, nextScene: "game_final_3"
-            },
-            game_final_3: {
-                name: "Teto & Gumi",
-                text: "That was the best Glitch-Pop tour ever! See you at the next concert!",
-                isBattleScene: false, nextScene: "game_end"
-            },
-            game_end: {
-                name: "System",
-                text: "THE END. Thanks for playing Glitch-Pop!",
-                isBattleScene: false, nextScene: null
+        
+        <div class="site-card" data-category="games" id="site-kawaii-translate">
+            <div class="card-content">
+                <h3>Kawaii Translator</h3>
+                <p>A silly and adorable AI tool that instantly turns your normal text into super sweet anime slang. Sparkle like a magical girl! Meow~</p>
+                <div class="tags">
+                    <span class="tag">#kawaii</span>
+                    <span class="tag">#translator</span>
+                    <span class="tag">#anime</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-kawaii-translate')">🤍 <span class="like-count">87</span></button>
+            </div>
+        </div>
+
+       
+        <div class="site-card" data-category="games" id="site-whisperer">
+            <div class="card-content">
+                <h3>Whisperer</h3>
+                <p>Create your own Whisper-styled text memes using the iconic nostalgic font and layout! Extremely fun.</p>
+                <div class="tags">
+                    <span class="tag">#memes</span>
+                    <span class="tag">#generator</span>
+                    <span class="tag">#retro</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://aaronson.org" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-whisperer')">🤍 <span class="like-count">56</span></button>
+            </div>
+        </div>
+
+     
+        <div class="site-card" data-category="cool-stuff" id="site-nura">
+            <div class="card-content">
+                <h3>Nura Project</h3>
+                <p>An amazing creative project featuring awesome concepts. Made with love by lookoooooooo!</p>
+                <div class="tags">
+                    <span class="tag">#nura</span>
+                    <span class="tag">#github-pages</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-nura')">🤍 <span class="like-count">12</span></button>
+            </div>
+        </div>
+
+      
+        <div class="site-card" data-category="studios" id="site-pudding">
+            <div class="card-content">
+                <h3>Pink Pudding Studio</h3>
+                <p>The legendary main hub of Pink Pudding Studio. The sweetest digital playground on the web!</p>
+                <div class="tags">
+                    <span class="tag">#studio</span>
+                    <span class="tag">#pink-pudding</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-pudding')">🤍 <span class="like-count">24</span></button>
+            </div>
+        </div>
+
+    </main>
+
+  
+    <footer class="pudding-footer">
+        <p>&copy; 2026 Pink Pudding Studio. All rights absorbed by puddings <span class="jiggle-pudding">🍮</span></p>
+    </footer>
+
+    <script>
+        function filterCategory(category) {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(event && event.target) {
+                event.target.classList.add('active');
             }
-        };
 
-        // ЛОГИКА ДВИЖКА ИГРЫ
-        function renderScene() {
-            let scene = script[state.currentScene];
-            if (!scene) return;
+            const cards = document.querySelectorAll('.site-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
-            document.getElementById("speaker").innerText = scene.name;
-            document.getElementById("story").innerText = scene.text;
+        function toggleLike(id) {
+            const card = document.getElementById(id);
+            const button = card.querySelector('.like-btn');
+            const countSpan = card.querySelector('.like-count');
+            let currentCount = parseInt(countSpan.innerText);
             
-            let stage = document.getElementById("stage");
-            stage.innerHTML = ""; 
+            let likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
 
-            let spriteImg = document.createElement("img");
-            spriteImg.className = "sprite-full";
-
-            let speakerEl = document.getElementById("speaker");
-            
-            if (scene.name.includes("Miku")) {
-                speakerEl.style.color = "#00ffff";
-                spriteImg.src = images.mikuFull;
-                stage.appendChild(spriteImg);
-            } else if (scene.name.includes("Luka")) {
-                speakerEl.style.color = "#ffb6c1";
-                spriteImg.src = images.lukaFull;
-                stage.appendChild(spriteImg);
-            } else if (scene.name.includes("Teto")) {
-                speakerEl.style.color = "#ff0055";
-                spriteImg.src = images.tetoFull;
-                stage.appendChild(spriteImg);
-            } else if (scene.name.includes("Gumi")) {
-                speakerEl.style.color = "#a3ff00";
-                spriteImg.src = images.gumiFull;
-                stage.appendChild(spriteImg);
+            if (likedSites.includes(id)) {
+                likedSites = likedSites.filter(item => item !== id);
+                currentCount--;
+                button.classList.remove('liked');
+                button.innerHTML = `🤍 <span class="like-count">${currentCount}</span>`;
             } else {
-                speakerEl.style.color = "#39ff14";
+                likedSites.push(id);
+                currentCount++;
+                button.classList.add('liked');
+                button.innerHTML = `💖 <span class="like-count">${currentCount}</span>`;
             }
+
+            localStorage.setItem('nekoLikedSites', JSON.stringify(likedSites));
+            countSpan.innerText = currentCount;
         }
 
-        function nextDialogue() {
-            let scene = script[state.currentScene];
-            if (scene && scene.nextScene && !scene.isBattleScene) {
-                state.currentScene = scene.nextScene;
-                renderScene();
-            }
+        window.onload = function() {
+            const likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
+            likedSites.forEach(id => {
+                const card = document.getElementById(id);
+                if (card) {
+                    const button = card.querySelector('.like-btn');
+                    button.classList.add('liked');
+                    const text = button.querySelector('.like-count').innerText;
+                    button.innerHTML = `💖 <span class="like-count">${text}</span>`;
+                }
+            });
         }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            renderScene();
-        });
     </script>
 </body>
 </html>
