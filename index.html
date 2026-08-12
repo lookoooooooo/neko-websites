@@ -412,3 +412,279 @@
     </script>
 </body>
 </html>
+<body>
+
+    <header>
+        <h1>🐾 Neko Websites</h1>
+        <p>A magical place to find awesome websites, curated by cats! Meow~</p>
+    </header>
+
+    <div class="neko-banner-container">
+        <img class="neko-gif" src="cat.jpg" alt="Excited Ginger Neko">
+    </div>
+
+    <div class="categories">
+        <button class="category-btn active" onclick="filterCategory('all')">🐾 All Sites</button>
+        <button class="category-btn" onclick="filterCategory('my-sites')">⭐️ My Websites!</button>
+        <button class="category-btn" onclick="filterCategory('games')">🎮 Fun & Games</button>
+    </div>
+
+    <main class="catalog-container" id="catalog">
+        
+        <div class="site-card" data-category="games" id="site-candybox">
+            <div class="card-content">
+                <h3>Candy Box 2</h3>
+                <p>A legendary text-based RPG game where candies grow every second. Eat them, throw them, or start an epic ASCII adventure!</p>
+                <div class="tags">
+                    <span class="tag">#rpg</span>
+                    <span class="tag">#ascii</span>
+                    <span class="tag">#classic</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-candybox')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-sandspiel">
+            <div class="card-content">
+                <h3>Sandspiel</h3>
+                <p>A beautiful pixel physics sandbox. Mix element particles like fire, water, ice, sand, and acid to watch chaotic reactions!</p>
+                <div class="tags">
+                    <span class="tag">#sandbox</span>
+                    <span class="tag">#pixels</span>
+                    <span class="tag">#physics</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://sandspiel.club" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-sandspiel')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-emojikitchen">
+            <div class="card-content">
+                <h3>Emoji Kitchen</h3>
+                <p>Combine two crazy emojis into a completely unique custom sticker. Infinite funny, weird, and lovely combinations!</p>
+                <div class="tags">
+                    <span class="tag">#emojis</span>
+                    <span class="tag">#creative</span>
+                    <span class="tag">#mashup</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://emojikitchen.dev" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-emojikitchen')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-catbounce">
+            <div class="card-content">
+                <h3>Cat Bounce</h3>
+                <p>An incredibly silly and interactive website where cute cats just bounce around your screen based on physics. Absolute purr-fection!</p>
+                <div class="tags">
+                    <span class="tag">#cats</span>
+                    <span class="tag">#funny</span>
+                    <span class="tag">#bouncy</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://cat-bounce.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-catbounce')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+        <div class="site-card" data-category="games" id="site-fluids">
+            <div class="card-content">
+                <h3>WebGL Fluid Simulation</h3>
+                <p style="background-color: #f7ede2; color: #a6442e; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; border: 1px solid #dcbfa6; display: inline-block; margin-bottom: 10px;">
+                    ❗️ FLASH WARNING / PHOTOSENSITIVITY AWARENESS ❗️
+                </p>
+                <p>A gorgeous, hypnotic interactive simulator that generates trippy, colorful liquid smoke effects. Move your mouse to paint, but be careful with bright flashing lights!</p>
+                <div class="tags">
+                    <span class="tag">#fluids</span>
+                    <span class="tag">#hypnotic</span>
+                    <span class="tag">#visuals</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-fluids')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-orbfarm">
+            <div class="card-content">
+                <h3>Orb Farm</h3>
+                <p>Create a self-sustaining virtual ecosystem inside a glass ball. Plant algae, add fish, manage bacteria, and balance nature!</p>
+                <div class="tags">
+                    <span class="tag">#aquarium</span>
+                    <span class="tag">#ecosystem</span>
+                    <span class="tag">#simulation</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://orb.farm" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-orbfarm')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-emoji-translate">
+            <div class="card-content">
+                <h3>Emoji Translator</h3>
+                <p>A whimsical digital tool that transforms your normal text into a colorful parade of emojis, pizza, unicorns, and dancing figures! 🎨😄🚀</p>
+                <div class="tags">
+                    <span class="tag">#emojis</span>
+                    <span class="tag">#translator</span>
+                    <span class="tag">#fun</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-emoji-translate')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-spin-wheel">
+            <div class="card-content">
+                <h3>Spin The Wheel</h3>
+                <p>Can't make up your mind? Create custom spin wheels for games, giveaways, or deciding what to do next. Let the fortune wheel decide! 🎡</p>
+                <div class="tags">
+                    <span class="tag">#randomizer</span>
+                    <span class="tag">#decision-making</span>
+                    <span class="tag">#interactive</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://spinthewheel.app" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-spin-wheel')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-kawaii-translate">
+            <div class="card-content">
+                <h3>Kawaii Translator</h3>
+                <p>A silly and adorable AI tool that instantly turns your normal text into super sweet anime slang. Sparkle like a magical girl! Meow~</p>
+                <div class="tags">
+                    <span class="tag">#kawaii</span>
+                    <span class="tag">#translator</span>
+                    <span class="tag">#anime</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-kawaii-translate')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="games" id="site-whisperer">
+            <div class="card-content">
+                <h3>Whisperer</h3>
+                <p>Create your own Whisper-styled text memes using the iconic nostalgic font and layout! Extremely fun.</p>
+                <div class="tags">
+                    <span class="tag">#memes</span>
+                    <span class="tag">#generator</span>
+                    <span class="tag">#retro</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://aaronson.org" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-whisperer')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="my-sites" id="site-nura">
+            <div class="card-content">
+                <h3>Nura Project</h3>
+                <p>A project featuring awesome concepts. Made with love by lookoooooooo!</p>
+                <div class="tags">
+                    <span class="tag">#nura</span>
+                    <span class="tag">#github-pages</span>
+                    <span class="tag">#my-work</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-nura')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+        <div class="site-card" data-category="my-sites" id="site-pudding">
+            <div class="card-content">
+                <h3>Pink Pudding Studio</h3>
+                <p> main hub of Pink Pudding Studio.</p>
+                <div class="tags">
+                    <span class="tag">#studio</span>
+                    <span class="tag">#pink-pudding</span>
+                    <span class="tag">#main-hub</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
+                <button class="like-btn" onclick="toggleLike('site-pudding')">🤍 <span class="like-count">0</span></button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="pudding-footer">
+        <p>&copy; 2026 Pink Pudding Studio. All rights absorbed by puddings <span class="jiggle-pudding">🍮</span></p>
+    </footer>
+
+    <script>
+        function filterCategory(category) {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            const cards = document.querySelectorAll('.site-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleLike(id) {
+            const card = document.getElementById(id);
+            const button = card.querySelector('.like-btn');
+            const countSpan = card.querySelector('.like-count');
+            let currentCount = parseInt(countSpan.innerText);
+            
+            let likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
+
+            if (likedSites.includes(id)) {
+                likedSites = likedSites.filter(item => item !== id);
+                currentCount--;
+                button.classList.remove('liked');
+                button.innerHTML = `🤍 <span class="like-count">${currentCount}</span>`;
+            } else {
+                likedSites.push(id);
+                currentCount++;
+                button.classList.add('liked');
+                button.innerHTML = `💖 <span class="like-count">${currentCount}</span>`;
+            }
+
+            localStorage.setItem('nekoLikedSites', JSON.stringify(likedSites));
+            countSpan.innerText = currentCount;
+        }
+
+        window.onload = function() {
+            const likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
+            likedSites.forEach(id => {
+                const card = document.getElementById(id);
+                if (card) {
+                    const button = card.querySelector('.like-btn');
+                    button.classList.add('liked');
+                    const text = button.querySelector('.like-count').innerText;
+                    button.innerHTML = `💖 <span class="like-count">${text}</span>`;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
