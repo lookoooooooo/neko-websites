@@ -1,199 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Core Walker 2D</title>
+    <title>ヨラ、私を信じてくれる？</title>
     <style>
-        /* Базовые настройки экрана */
-        box-sizing: border-box;
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: #111;
-            color: #fff;
-            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: #000000;
+            color: #ffffff;
+            font-family: "MS Mincho", "New York", serif;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
+            width: 100vw;
             overflow: hidden;
+            user-select: none;
         }
 
-        /* Наш 2D Экран-Консоль */
-        #screen-container {
+        #canvas-screen {
             position: relative;
-            width: 800px;
-            height: 450px;
-            border: 4px solid #333;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            width: 100vw;
+            height: 100vh;
+            max-width: 1200px;
+            max-height: 700px;
+            background: #030303;
             overflow: hidden;
-            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Комната (Контент внутри экрана) */
-        .room {
+        .scene-container {
+            position: absolute;
             width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 0.5s ease-in-out;
-            position: absolute;
-            top: 0;
-            left: 0;
+            transition: opacity 1.5s ease-in-out, filter 1.5s ease-in-out;
             opacity: 0;
             pointer-events: none;
+            filter: blur(15px);
         }
 
-        .room.active {
+        .scene-container.active {
             opacity: 1;
             pointer-events: auto;
+            filter: blur(0px);
         }
 
-        /* Стилизация разных миров (Комнат) */
-        .dreamcore {
-            background: linear-gradient(180deg, #a1c4fd 0%, #c2e9fb 100%);
-            color: #333;
-        }
-        .cutecore {
-            background: #ffdeeb;
-            color: #ff4a8d;
-        }
-        .guttergoth {
-            background: #1a1a1a;
-            color: #ff0055;
-            border: 2px dashed #ff0055;
-        }
-        .goblincore {
-            background: #2d3a22;
-            color: #d4a373;
-        }
-
-        /* Кнопки навигации < и > */
-        .nav-btn {
+        .text-overlay {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: 2px solid #555;
-            padding: 15px 20px;
-            font-size: 24px;
-            cursor: pointer;
-            border-radius: 5px;
-            z-index: 10;
-            transition: 0.2s;
-        }
-        .nav-btn:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 10px #fff;
-        }
-        #btn-prev { left: 20px; }
-        #btn-next { right: 20px; }
-
-        /* Интерфейс цели (Счетчик сверху) */
-        #ui-panel {
-            margin-bottom: 15px;
-            font-size: 18px;
-            text-shadow: 0 0 5px #00ff00;
-            color: #00ff00;
+            bottom: 15%;
+            width: 85%;
+            text-align: center;
+            font-size: 20px;
+            line-height: 2;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
-        /* Квестовый предмет для клика (Залипашка) */
-        .quest-item {
+        .title-text {
             font-size: 40px;
+            margin-bottom: 25px;
+            color: #ffffff;
+            letter-spacing: 0.3em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        }
+
+        .visual-element {
+            position: absolute;
+            font-size: 90px;
+            opacity: 0.2;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(4deg); }
+        }
+
+        .nav-trigger {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 12%;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 36px;
+            font-family: monospace;
             cursor: pointer;
-            margin-top: 20px;
-            animation: bounce 2s infinite;
-            display: inline-block;
+            z-index: 10;
+            transition: color 0.4s, background 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+        .nav-trigger:hover {
+            color: rgba(255, 255, 255, 0.6);
+            background: linear-gradient(to right, rgba(255,255,255,0.02), transparent);
         }
+
+        #prev-btn { left: 0; }
+        #next-btn { right: 0; }
+        #next-btn:hover { background: linear-gradient(to left, rgba(255,255,255,0.02), transparent); }
+
+        .sc-01 { background: radial-gradient(circle, #0f0f14 0%, #000000 100%); }
+        .sc-02 { background: radial-gradient(circle, #140f0f 0%, #000000 100%); }
+        .sc-03 { background: radial-gradient(circle, #0f1411 0%, #000000 100%); }
+        .sc-04 { background: radial-gradient(circle, #130f14 0%, #000000 100%); }
+        .sc-05 { background: radial-gradient(circle, #111111 0%, #000000 100%); }
     </style>
 </head>
 <body>
 
-    <!-- Панель игрока (Интерфейс цели) -->
-    <div id="ui-panel">
-        ITEMS FOUND: <span id="score">0</span> / 3 | <span id="status">Explore the Cores...</span>
-    </div>
-
-    <!-- Главный 2D Экран -->
-    <div id="screen-container">
+    <div id="canvas-screen">
         
-        <button class="nav-btn" id="btn-prev">&lt;</button>
-        <button class="nav-btn" id="btn-next">&gt;</button>
+        <button class="nav-trigger" id="prev-btn">&lt;</button>
+        <button class="nav-trigger" id="next-btn">&gt;</button>
 
-        <!-- КОМНАТА 1: ДРИМКОР -->
-        <div class="room dreamcore active" data-id="0">
-            <h2>[ ROOM 01: OTO'S SKY ]</h2>
-            <p>👁️ The clouds are watching you walk.</p>
-            <!-- Скрытый предмет -->
-            <div class="quest-item" onclick="collectItem(this, 'Oto\'s Eye')">👁️‍🗨️</div>
+        <!-- Scene 1 -->
+        <div class="scene-container sc-01 active">
+            <div class="visual-element" style="top: 25%; left: 45%;">🌧️</div>
+            <div class="text-overlay">
+                深く、重い、灰色の毎日。<br>
+                心が擦り切れていく。
+            </div>
         </div>
 
-        <!-- КОМНАТА 2: КЬЮТИКОР -->
-        <div class="room cutecore" data-id="1">
-            <h2>[ ROOM 02: KAWAII'S BEDROOM ]</h2>
-            <p>🎀 Everything is pink. Too pink.</p>
-            <!-- Просто декоративная залипашка (не квестовая) -->
-            <div style="font-size: 30px; cursor:pointer;" onclick="alert('💖 Soft!')">🧸</div>
+        <!-- Scene 2 -->
+        <div class="scene-container sc-02">
+            <div class="visual-element" style="top: 30%; left: 35%; animation-delay: -2s;">👁️</div>
+            <div class="text-overlay">
+                現実が歪み始める。<br>
+                そこにいないはずの影が、静かに揺れていた。
+            </div>
         </div>
 
-        <!-- КОМНАТА 3: КЬЮТГОТ -->
-        <div class="room guttergoth" data-id="2">
-            <h2>[ ROOM 03: KOWAI'S BASEMENT ]</h2>
-            <p>🎸 Loud breakcore music echoes here.</p>
-            <div class="quest-item" onclick="collectItem(this, 'Kowai\'s Mirror')">🪞</div>
+        <!-- Scene 3 -->
+        <div class="scene-container sc-03">
+            <div class="visual-element" style="top: 35%; left: 55%; animation-delay: -4s;">⏳</div>
+            <div class="text-overlay">
+                意識がゆっくりと、闇の底へ沈んでいく。<br>
+                深い眠りが、すべてを包み込んだ。
+            </div>
         </div>
 
-        <!-- КОМНАТА 4: ГОБЛИНКОР -->
-        <div class="room goblincore" data-id="3">
-            <h2>[ ROOM 04: CHORA'S FOREST ]</h2>
-            <p>🌿 Moss covers old wet boots.</p>
-            <div class="quest-item" onclick="collectItem(this, 'Chora\'s Mushroom')">🍄</div>
+        <!-- Scene 4 -->
+        <div class="scene-container sc-04">
+            <div class="visual-element" style="top: 20%; left: 50%; font-size: 100px; animation-delay: -1s;">🦋</div>
+            <div class="text-overlay">
+                目を覚ますと、そこは見たこともない世界だった。<br>
+                美しく、歪んだ、幻覚の境界線。
+            </div>
+        </div>
+
+        <!-- Scene 5: Final Title / Question -->
+        <div class="scene-container sc-05">
+            <div class="text-overlay" style="bottom: 35%;">
+                <div class="title-text">ヨラ</div>
+                私を信じてくれる？
+            </div>
         </div>
 
     </div>
 
     <script>
-        let currentRoom = 0;
-        const rooms = document.querySelectorAll('.room');
-        const totalRooms = rooms.length;
-        let itemsFound = 0;
+        let activeIndex = 0;
+        const scenes = document.querySelectorAll('.scene-container');
+        const maxIndex = scenes.length;
 
-        // Логика кнопок < и >
-        document.getElementById('btn-next').addEventListener('click', () => {
-            rooms[currentRoom].classList.remove('active');
-            currentRoom = (currentRoom + 1) % totalRooms; // Бесконечный цикл вперед
-            rooms[currentRoom].classList.add('active');
+        document.getElementById('next-btn').addEventListener('click', () => {
+            scenes[activeIndex].classList.remove('active');
+            activeIndex = (activeIndex + 1) % maxIndex;
+            scenes[activeIndex].classList.add('active');
         });
 
-        document.getElementById('btn-prev').addEventListener('click', () => {
-            rooms[currentRoom].classList.remove('active');
-            currentRoom = (currentRoom - 1 + totalRooms) % totalRooms; // Бесконечный цикл назад
-            rooms[currentRoom].classList.add('active');
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            scenes[activeIndex].classList.remove('active');
+            activeIndex = (activeIndex - 1 + maxIndex) % maxIndex;
+            scenes[activeIndex].classList.add('active');
         });
-
-        // Логика сбора предметов
-        function collectItem(element, itemName) {
-            element.style.display = 'none'; // Удаляем предмет с экрана
-            itemsFound++;
-            document.getElementById('score').innerText = itemsFound;
-            document.getElementById('status').innerText = `Found: ${itemName}!`;
-            
-            if(itemsFound === 3) {
-                document.getElementById('status').innerText = "CORE REPAIRED. YOU WIN! 🌟";
-                document.getElementById('status').style.color = '#fff';
-            }
-        }
     </script>
 </body>
 </html>
