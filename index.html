@@ -3,687 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neko Websites — Meow-gical Internet Directory</title>
+    <title>Core Walker 2D</title>
     <style>
+        /* Базовые настройки экрана */
+        box-sizing: border-box;
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fff9fa;
-            color: #4a4a4a;
             margin: 0;
             padding: 0;
+            background: #111;
+            color: #fff;
+            font-family: 'Courier New', monospace;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 20px 10px 20px;
-            background: #ffffff;
-        }
-
-        header h1 {
-            margin: 0;
-            color: #ff6b8b;
-            font-size: 2.8rem;
-            text-shadow: 2px 2px #ffe4e1;
-        }
-
-        header p {
-            margin: 5px 0 0 0;
-            color: #a19597;
-            font-size: 1.1rem;
-            font-style: italic;
-        }
-
-      
-        .neko-banner-container {
-            text-align: center;
-            margin: 15px auto;
-            max-width: 220px; 
-        }
-
-        .neko-gif {
-            width: 100%;
-            height: auto;
-            border-radius: 15px; 
-            border: 4px solid #ffb6c1;
-            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .neko-gif:hover {
-            transform: scale(1.05) translateY(-5px); 
-        }
-
-      
-        .categories {
-            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin: 20px 20px 30px 20px;
-            flex-wrap: wrap;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .category-btn {
-            background-color: #ffffff;
-            border: 2px solid #ffb6c1;
-            padding: 8px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            color: #ff6b8b;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
+        /* Наш 2D Экран-Консоль */
+        #screen-container {
+            position: relative;
+            width: 800px;
+            height: 450px;
+            border: 4px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            overflow: hidden;
+            background: #000;
         }
 
-        .category-btn:hover, .category-btn.active {
-            background-color: #ff6b8b;
-            color: white;
-            border-color: #ff6b8b;
-            box-shadow: 0 4px 10px rgba(255, 107, 139, 0.3);
-        }
-
-       
-        .catalog-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            flex-grow: 1;
+        /* Комната (Контент внутри экрана) */
+        .room {
             width: 100%;
-            box-sizing: border-box;
-        }
-
-        .site-card {
-            background: white;
-            border-radius: 20px;
-            padding: 22px;
-            box-shadow: 0 6px 18px rgba(255, 182, 193, 0.15);
-            border: 2px solid #fff0f2;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            pointer-events: none;
         }
 
-        .site-card:hover {
-            transform: translateY(-5px);
-            border-color: #ffb6c1;
+        .room.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .card-content h3 {
-            margin: 0 0 10px 0;
+        /* Стилизация разных миров (Комнат) */
+        .dreamcore {
+            background: linear-gradient(180deg, #a1c4fd 0%, #c2e9fb 100%);
             color: #333;
-            font-size: 1.3rem;
+        }
+        .cutecore {
+            background: #ffdeeb;
+            color: #ff4a8d;
+        }
+        .guttergoth {
+            background: #1a1a1a;
+            color: #ff0055;
+            border: 2px dashed #ff0055;
+        }
+        .goblincore {
+            background: #2d3a22;
+            color: #d4a373;
         }
 
-        .card-content p {
-            font-size: 0.95rem;
-            color: #776a6c;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        .tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .tag {
-            background: #fff0f2;
-            color: #ff6b8b;
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-weight: 500;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .visit-btn {
-            display: inline-block;
-            text-align: center;
-            background: #ff6b8b;
+        /* Кнопки навигации < и > */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
             color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-
-        .visit-btn:hover {
-            background: #ff4770;
-        }
-
-       
-        .like-btn {
-            background: none;
-            border: 2px solid #ffe4e1;
-            border-radius: 12px;
+            border: 2px solid #555;
+            padding: 15px 20px;
+            font-size: 24px;
             cursor: pointer;
-            padding: 8px 12px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s ease;
-            color: #666;
+            border-radius: 5px;
+            z-index: 10;
+            transition: 0.2s;
+        }
+        .nav-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 10px #fff;
+        }
+        #btn-prev { left: 20px; }
+        #btn-next { right: 20px; }
+
+        /* Интерфейс цели (Счетчик сверху) */
+        #ui-panel {
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-shadow: 0 0 5px #00ff00;
+            color: #00ff00;
         }
 
-        .like-btn:hover {
-            border-color: #ff6b8b;
-            transform: scale(1.05);
-        }
-
-        .like-btn.liked {
-            background: #fff0f2;
-            border-color: #ff6b8b;
-            color: #ff6b8b;
-            font-weight: bold;
-        }
-
-      
-        .pudding-footer {
-            text-align: center;
-            padding: 25px 20px;
-            margin-top: 60px;
-            background-color: #ffffff;
-            border-top: 3px dashed #ffb6c1;
-            font-size: 0.95rem;
-            color: #776a6c;
-        }
-
-        .jiggle-pudding {
+        /* Квестовый предмет для клика (Залипашка) */
+        .quest-item {
+            font-size: 40px;
+            cursor: pointer;
+            margin-top: 20px;
+            animation: bounce 2s infinite;
             display: inline-block;
-            cursor: pointer;
         }
-
-        .jiggle-pudding:hover {
-            animation: jelly 0.5s infinite;
-        }
-
-        @keyframes jelly {
-            0% { transform: scale(1, 1); }
-            30% { transform: scale(1.25, 0.75); }
-            40% { transform: scale(0.75, 1.25); }
-            50% { transform: scale(1.15, 0.85); }
-            65% { transform: scale(0.95, 1.05); }
-            75% { transform: scale(1.05, 0.95); }
-            100% { transform: scale(1, 1); }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
 
-    
-    <header>
-        <h1>🐾 Neko Websites</h1>
-        <p>A magical place to find awesome websites, curated by cats! Meow~</p>
-    </header>
-
-
-    <div class="neko-banner-container">
-        <img class="neko-gif" src="cat.jpg" alt="Excited Ginger Neko">
+    <!-- Панель игрока (Интерфейс цели) -->
+    <div id="ui-panel">
+        ITEMS FOUND: <span id="score">0</span> / 3 | <span id="status">Explore the Cores...</span>
     </div>
 
-  
-    <div class="categories">
-        <button class="category-btn active" onclick="filterCategory('all')"> All Sites</button>
-        <button class="category-btn" onclick="filterCategory('studios')"> 🍮my Studio webs!</button>
-        <button class="category-btn" onclick="filterCategory('games')"> Fun & Games</button>
-        <button class="category-btn" onclick="filterCategory('cool-stuff')">✨ Cool Stuff</button>
+    <!-- Главный 2D Экран -->
+    <div id="screen-container">
+        
+        <button class="nav-btn" id="btn-prev">&lt;</button>
+        <button class="nav-btn" id="btn-next">&gt;</button>
+
+        <!-- КОМНАТА 1: ДРИМКОР -->
+        <div class="room dreamcore active" data-id="0">
+            <h2>[ ROOM 01: OTO'S SKY ]</h2>
+            <p>👁️ The clouds are watching you walk.</p>
+            <!-- Скрытый предмет -->
+            <div class="quest-item" onclick="collectItem(this, 'Oto\'s Eye')">👁️‍🗨️</div>
+        </div>
+
+        <!-- КОМНАТА 2: КЬЮТИКОР -->
+        <div class="room cutecore" data-id="1">
+            <h2>[ ROOM 02: KAWAII'S BEDROOM ]</h2>
+            <p>🎀 Everything is pink. Too pink.</p>
+            <!-- Просто декоративная залипашка (не квестовая) -->
+            <div style="font-size: 30px; cursor:pointer;" onclick="alert('💖 Soft!')">🧸</div>
+        </div>
+
+        <!-- КОМНАТА 3: КЬЮТГОТ -->
+        <div class="room guttergoth" data-id="2">
+            <h2>[ ROOM 03: KOWAI'S BASEMENT ]</h2>
+            <p>🎸 Loud breakcore music echoes here.</p>
+            <div class="quest-item" onclick="collectItem(this, 'Kowai\'s Mirror')">🪞</div>
+        </div>
+
+        <!-- КОМНАТА 4: ГОБЛИНКОР -->
+        <div class="room goblincore" data-id="3">
+            <h2>[ ROOM 04: CHORA'S FOREST ]</h2>
+            <p>🌿 Moss covers old wet boots.</p>
+            <div class="quest-item" onclick="collectItem(this, 'Chora\'s Mushroom')">🍄</div>
+        </div>
+
     </div>
-
-  
-    <main class="catalog-container" id="catalog">
-        
-      
-        <div class="site-card" data-category="games" id="site-emoji-translate">
-            <div class="card-content">
-                <h3>Emoji Translator</h3>
-                <p>A whimsical digital tool that transforms your normal text into a colorful parade of emojis, pizza, unicorns, and dancing figures! 🎨😄🚀</p>
-                <div class="tags">
-                    <span class="tag">#emojis</span>
-                    <span class="tag">#translator</span>
-                    <span class="tag">#fun</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-emoji-translate')">🤍 <span class="like-count">64</span></button>
-            </div>
-        </div>
-
-    
-        <div class="site-card" data-category="games" id="site-spin-wheel">
-            <div class="card-content">
-                <h3>Spin The Wheel</h3>
-                <p>Can't make up your mind? Create custom spin wheels for games, giveaways, or deciding what to do next. Let the fortune wheel decide! 🎡</p>
-                <div class="tags">
-                    <span class="tag">#randomizer</span>
-                    <span class="tag">#decision-making</span>
-                    <span class="tag">#interactive</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://spinthewheel.app" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-spin-wheel')">🤍 <span class="like-count">42</span></button>
-            </div>
-        </div>
-
-        
-        <div class="site-card" data-category="games" id="site-kawaii-translate">
-            <div class="card-content">
-                <h3>Kawaii Translator</h3>
-                <p>A silly and adorable AI tool that instantly turns your normal text into super sweet anime slang. Sparkle like a magical girl! Meow~</p>
-                <div class="tags">
-                    <span class="tag">#kawaii</span>
-                    <span class="tag">#translator</span>
-                    <span class="tag">#anime</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-kawaii-translate')">🤍 <span class="like-count">87</span></button>
-            </div>
-        </div>
-
-       
-        <div class="site-card" data-category="games" id="site-whisperer">
-            <div class="card-content">
-                <h3>Whisperer</h3>
-                <p>Create your own Whisper-styled text memes using the iconic nostalgic font and layout! Extremely fun.</p>
-                <div class="tags">
-                    <span class="tag">#memes</span>
-                    <span class="tag">#generator</span>
-                    <span class="tag">#retro</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://aaronson.org" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-whisperer')">🤍 <span class="like-count">56</span></button>
-            </div>
-        </div>
-
-     
-        <div class="site-card" data-category="cool-stuff" id="site-nura">
-            <div class="card-content">
-                <h3>Nura Project</h3>
-                <p>An amazing creative project featuring awesome concepts. Made with love by lookoooooooo!</p>
-                <div class="tags">
-                    <span class="tag">#nura</span>
-                    <span class="tag">#github-pages</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-nura')">🤍 <span class="like-count">12</span></button>
-            </div>
-        </div>
-
-      
-        <div class="site-card" data-category="studios" id="site-pudding">
-            <div class="card-content">
-                <h3>Pink Pudding Studio</h3>
-                <p>The legendary main hub of Pink Pudding Studio. The sweetest digital playground on the web!</p>
-                <div class="tags">
-                    <span class="tag">#studio</span>
-                    <span class="tag">#pink-pudding</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-pudding')">🤍 <span class="like-count">24</span></button>
-            </div>
-        </div>
-
-    </main>
-
-  
-    <footer class="pudding-footer">
-        <p>&copy; 2026 Pink Pudding Studio. All rights absorbed by puddings <span class="jiggle-pudding">🍮</span></p>
-    </footer>
 
     <script>
-        function filterCategory(category) {
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if(event && event.target) {
-                event.target.classList.add('active');
-            }
+        let currentRoom = 0;
+        const rooms = document.querySelectorAll('.room');
+        const totalRooms = rooms.length;
+        let itemsFound = 0;
 
-            const cards = document.querySelectorAll('.site-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+        // Логика кнопок < и >
+        document.getElementById('btn-next').addEventListener('click', () => {
+            rooms[currentRoom].classList.remove('active');
+            currentRoom = (currentRoom + 1) % totalRooms; // Бесконечный цикл вперед
+            rooms[currentRoom].classList.add('active');
+        });
 
-        function toggleLike(id) {
-            const card = document.getElementById(id);
-            const button = card.querySelector('.like-btn');
-            const countSpan = card.querySelector('.like-count');
-            let currentCount = parseInt(countSpan.innerText);
+        document.getElementById('btn-prev').addEventListener('click', () => {
+            rooms[currentRoom].classList.remove('active');
+            currentRoom = (currentRoom - 1 + totalRooms) % totalRooms; // Бесконечный цикл назад
+            rooms[currentRoom].classList.add('active');
+        });
+
+        // Логика сбора предметов
+        function collectItem(element, itemName) {
+            element.style.display = 'none'; // Удаляем предмет с экрана
+            itemsFound++;
+            document.getElementById('score').innerText = itemsFound;
+            document.getElementById('status').innerText = `Found: ${itemName}!`;
             
-            let likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
-
-            if (likedSites.includes(id)) {
-                likedSites = likedSites.filter(item => item !== id);
-                currentCount--;
-                button.classList.remove('liked');
-                button.innerHTML = `🤍 <span class="like-count">${currentCount}</span>`;
-            } else {
-                likedSites.push(id);
-                currentCount++;
-                button.classList.add('liked');
-                button.innerHTML = `💖 <span class="like-count">${currentCount}</span>`;
+            if(itemsFound === 3) {
+                document.getElementById('status').innerText = "CORE REPAIRED. YOU WIN! 🌟";
+                document.getElementById('status').style.color = '#fff';
             }
-
-            localStorage.setItem('nekoLikedSites', JSON.stringify(likedSites));
-            countSpan.innerText = currentCount;
-        }
-
-        window.onload = function() {
-            const likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
-            likedSites.forEach(id => {
-                const card = document.getElementById(id);
-                if (card) {
-                    const button = card.querySelector('.like-btn');
-                    button.classList.add('liked');
-                    const text = button.querySelector('.like-count').innerText;
-                    button.innerHTML = `💖 <span class="like-count">${text}</span>`;
-                }
-            });
-        }
-    </script>
-</body>
-</html>
-<body>
-
-    <header>
-        <h1>🐾 Neko Websites</h1>
-        <p>A magical place to find awesome websites, curated by cats! Meow~</p>
-    </header>
-
-    <div class="neko-banner-container">
-        <img class="neko-gif" src="cat.jpg" alt="Excited Ginger Neko">
-    </div>
-
-    <div class="categories">
-        <button class="category-btn active" onclick="filterCategory('all')">🐾 All Sites</button>
-        <button class="category-btn" onclick="filterCategory('my-sites')">⭐️ My Websites!</button>
-        <button class="category-btn" onclick="filterCategory('games')">🎮 Fun & Games</button>
-    </div>
-
-    <main class="catalog-container" id="catalog">
-        
-        <div class="site-card" data-category="games" id="site-candybox">
-            <div class="card-content">
-                <h3>Candy Box 2</h3>
-                <p>A legendary text-based RPG game where candies grow every second. Eat them, throw them, or start an epic ASCII adventure!</p>
-                <div class="tags">
-                    <span class="tag">#rpg</span>
-                    <span class="tag">#ascii</span>
-                    <span class="tag">#classic</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-candybox')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-sandspiel">
-            <div class="card-content">
-                <h3>Sandspiel</h3>
-                <p>A beautiful pixel physics sandbox. Mix element particles like fire, water, ice, sand, and acid to watch chaotic reactions!</p>
-                <div class="tags">
-                    <span class="tag">#sandbox</span>
-                    <span class="tag">#pixels</span>
-                    <span class="tag">#physics</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://sandspiel.club" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-sandspiel')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-emojikitchen">
-            <div class="card-content">
-                <h3>Emoji Kitchen</h3>
-                <p>Combine two crazy emojis into a completely unique custom sticker. Infinite funny, weird, and lovely combinations!</p>
-                <div class="tags">
-                    <span class="tag">#emojis</span>
-                    <span class="tag">#creative</span>
-                    <span class="tag">#mashup</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://emojikitchen.dev" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-emojikitchen')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-catbounce">
-            <div class="card-content">
-                <h3>Cat Bounce</h3>
-                <p>An incredibly silly and interactive website where cute cats just bounce around your screen based on physics. Absolute purr-fection!</p>
-                <div class="tags">
-                    <span class="tag">#cats</span>
-                    <span class="tag">#funny</span>
-                    <span class="tag">#bouncy</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://cat-bounce.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-catbounce')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-        <div class="site-card" data-category="games" id="site-fluids">
-            <div class="card-content">
-                <h3>WebGL Fluid Simulation</h3>
-                <p style="background-color: #f7ede2; color: #a6442e; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; border: 1px solid #dcbfa6; display: inline-block; margin-bottom: 10px;">
-                    ❗️ FLASH WARNING / PHOTOSENSITIVITY AWARENESS ❗️
-                </p>
-                <p>A gorgeous, hypnotic interactive simulator that generates trippy, colorful liquid smoke effects. Move your mouse to paint, but be careful with bright flashing lights!</p>
-                <div class="tags">
-                    <span class="tag">#fluids</span>
-                    <span class="tag">#hypnotic</span>
-                    <span class="tag">#visuals</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-fluids')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-orbfarm">
-            <div class="card-content">
-                <h3>Orb Farm</h3>
-                <p>Create a self-sustaining virtual ecosystem inside a glass ball. Plant algae, add fish, manage bacteria, and balance nature!</p>
-                <div class="tags">
-                    <span class="tag">#aquarium</span>
-                    <span class="tag">#ecosystem</span>
-                    <span class="tag">#simulation</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://orb.farm" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-orbfarm')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-emoji-translate">
-            <div class="card-content">
-                <h3>Emoji Translator</h3>
-                <p>A whimsical digital tool that transforms your normal text into a colorful parade of emojis, pizza, unicorns, and dancing figures! 🎨😄🚀</p>
-                <div class="tags">
-                    <span class="tag">#emojis</span>
-                    <span class="tag">#translator</span>
-                    <span class="tag">#fun</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-emoji-translate')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-spin-wheel">
-            <div class="card-content">
-                <h3>Spin The Wheel</h3>
-                <p>Can't make up your mind? Create custom spin wheels for games, giveaways, or deciding what to do next. Let the fortune wheel decide! 🎡</p>
-                <div class="tags">
-                    <span class="tag">#randomizer</span>
-                    <span class="tag">#decision-making</span>
-                    <span class="tag">#interactive</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://spinthewheel.app" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-spin-wheel')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-kawaii-translate">
-            <div class="card-content">
-                <h3>Kawaii Translator</h3>
-                <p>A silly and adorable AI tool that instantly turns your normal text into super sweet anime slang. Sparkle like a magical girl! Meow~</p>
-                <div class="tags">
-                    <span class="tag">#kawaii</span>
-                    <span class="tag">#translator</span>
-                    <span class="tag">#anime</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://anythingtranslate.com" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-kawaii-translate')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="games" id="site-whisperer">
-            <div class="card-content">
-                <h3>Whisperer</h3>
-                <p>Create your own Whisper-styled text memes using the iconic nostalgic font and layout! Extremely fun.</p>
-                <div class="tags">
-                    <span class="tag">#memes</span>
-                    <span class="tag">#generator</span>
-                    <span class="tag">#retro</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://aaronson.org" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-whisperer')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="my-sites" id="site-nura">
-            <div class="card-content">
-                <h3>Nura Project</h3>
-                <p>A project featuring awesome concepts. Made with love by lookoooooooo!</p>
-                <div class="tags">
-                    <span class="tag">#nura</span>
-                    <span class="tag">#github-pages</span>
-                    <span class="tag">#my-work</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-nura')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-        <div class="site-card" data-category="my-sites" id="site-pudding">
-            <div class="card-content">
-                <h3>Pink Pudding Studio</h3>
-                <p> main hub of Pink Pudding Studio.</p>
-                <div class="tags">
-                    <span class="tag">#studio</span>
-                    <span class="tag">#pink-pudding</span>
-                    <span class="tag">#main-hub</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="https://github.io" target="_blank" class="visit-btn">Visit Site 🐾</a>
-                <button class="like-btn" onclick="toggleLike('site-pudding')">🤍 <span class="like-count">0</span></button>
-            </div>
-        </div>
-
-    </main>
-
-    <footer class="pudding-footer">
-        <p>&copy; 2026 Pink Pudding Studio. All rights absorbed by puddings <span class="jiggle-pudding">🍮</span></p>
-    </footer>
-
-    <script>
-        function filterCategory(category) {
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if(event && event.target) {
-                event.target.classList.add('active');
-            }
-
-            const cards = document.querySelectorAll('.site-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function toggleLike(id) {
-            const card = document.getElementById(id);
-            const button = card.querySelector('.like-btn');
-            const countSpan = card.querySelector('.like-count');
-            let currentCount = parseInt(countSpan.innerText);
-            
-            let likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
-
-            if (likedSites.includes(id)) {
-                likedSites = likedSites.filter(item => item !== id);
-                currentCount--;
-                button.classList.remove('liked');
-                button.innerHTML = `🤍 <span class="like-count">${currentCount}</span>`;
-            } else {
-                likedSites.push(id);
-                currentCount++;
-                button.classList.add('liked');
-                button.innerHTML = `💖 <span class="like-count">${currentCount}</span>`;
-            }
-
-            localStorage.setItem('nekoLikedSites', JSON.stringify(likedSites));
-            countSpan.innerText = currentCount;
-        }
-
-        window.onload = function() {
-            const likedSites = JSON.parse(localStorage.getItem('nekoLikedSites')) || [];
-            likedSites.forEach(id => {
-                const card = document.getElementById(id);
-                if (card) {
-                    const button = card.querySelector('.like-btn');
-                    button.classList.add('liked');
-                    const text = button.querySelector('.like-count').innerText;
-                    button.innerHTML = `💖 <span class="like-count">${text}</span>`;
-                }
-            });
         }
     </script>
 </body>
